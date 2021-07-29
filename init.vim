@@ -14,34 +14,10 @@ set termguicolors
 
 let mapleader = ","
 "let g:ctrlp_map = '<leader>p'
-set rtp+='C:/Users/Administrator/AppData/Local/nvim/vimfiles'
-
+"
+let bundle_dir = 'd:/sw/vim/bundles/'
+set rtp+='D:/sw/vim/vimfiles/'
 let g:python3_host_prog = 'D:/sw/miniconda3/envs/py39/python.exe'
-"------------ COC config-------------------"
-"\'coc-pairs',
-let g:coc_global_extensions = [
-            \'coc-python',
-            \'coc-pyright',
-            \'coc-json',
-            \'coc-vimlsp',
-            \'coc-marketplace',
-            \'coc-xml',
-            \'coc-snippets',
-            \'coc-lists',
-            \'coc-highlight'
-            \]
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -54,32 +30,34 @@ function! s:show_documentation()
   endif
 endfunction
 "call plug#begin('C:/Users/Administrator/AppData/Local/nvim/plugged')
-let bundle_dir = 'd:/sw/vim/bundles/'
 call plug#begin(bundle_dir)
-    Plug 'junegunn/fzf.vim'
-        nnoremap <silent> <Leader>f :Files<CR>
-        nnoremap <silent> <Leader>b :Buffers<CR>
-    Plug 'ctrlpvim/ctrlp.vim'
-        let g:ctrlp_map = '<c-p>'
-        let g:ctrlp_cmd = 'CtrlP'
-        " 根据通配符来忽略不需要搜索的文件
-        set wildignore+=*\tmp\*,*/tmp/*,*.so,*.swp,*.zip,*.pyc
-        let g:ctrlp_root_markers = ['.svn', '.git', 'cfg.vim']
-        " 本地工作目录的规则，可设置以下选项
-        " 'c' - 设为当前文件所在的目录
-        " 'r' - 如果最近的祖先有包含以下目录，则将该祖先目录设为工作目录：.git .hg .svn .bzr _darcs, 
-        " 'a' - 和c选项类似，理解为仅在r不生效的情况下，才执行c选项
-        let g:ctrlp_working_path_mode = 'ra'
-        " 哪些文件、目录、链接不在搜索范围内
-        let g:ctrlp_custom_ignore = {
-                 \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-                 \ 'file': '\v\.(exe|so|dll|zip|gzip)$',
-                 \ 'link': 'data',
-                 \ }
-    Plug 'tacahiroy/ctrlp-funky'
-        nnoremap <Leader>fu :CtrlPFunky<Cr>
-        " narrow the list down with a word under cursor
-        nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+     Plug 'junegunn/fzf.vim'
+        nnoremap <c-f> :FZF<CR>
+        nmap <C-p> :Files<CR>
+        nmap <C-e> :Buffers<CR>
+        let g:fzf_action = { 'ctrl-e': 'edit' }
+    "plug 'ctrlpvim/ctrlp.vim'
+        "let g:ctrlp_map = '<c-p>'
+        "let g:ctrlp_cmd = 'ctrlp'
+        "" 根据通配符来忽略不需要搜索的文件
+        "set wildignore+=*\tmp\*,*/tmp/*,*.so,*.swp,*.zip,*.pyc
+        "let g:ctrlp_root_markers = ['.svn', '.git', 'cfg.vim']
+        "" 本地工作目录的规则，可设置以下选项
+        "" 'c' - 设为当前文件所在的目录
+        "" 'r' - 如果最近的祖先有包含以下目录，则将该祖先目录设为工作目录：.git .hg .svn .bzr _darcs, 
+        "" 'a' - 和c选项类似，理解为仅在r不生效的情况下，才执行c选项
+        "let g:ctrlp_working_path_mode = 'ra'
+        "" 哪些文件、目录、链接不在搜索范围内
+        "let g:ctrlp_custom_ignore = {
+                 "\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+                 "\ 'file': '\v\.(exe|so|dll|zip|gzip)$',
+                 "\ 'link': 'data',
+                 "\ }
+    "Plug 'tacahiroy/ctrlp-funky'
+        "nnoremap <Leader>fu :CtrlPFunky<Cr>
+        "" narrow the list down with a word under cursor
+        "nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
     Plug 'airblade/vim-rooter'
         let g:rooter_patterns = ['cfg.vim', '.git']
     Plug 'mileszs/ack.vim'
@@ -96,23 +74,50 @@ call plug#begin(bundle_dir)
         let g:SimpylFold_docstring_preview=1
 
     Plug 'neoclide/coc.nvim' 
-    Plug 'davidhalter/jedi-vim'
-        let g:jedi#auto_initialization = 0
-        let g:jedi#auto_vim_configuration = 0
-        let g:jedi#use_tabs_not_buffers = 1
-        let g:jedi#use_splits_not_buffers = "left"
-        let g:jedi#popup_on_dot = 0
-        let g:jedi#popup_select_first = 0
-        let g:jedi#show_call_signatures = "1"
 
-        let g:jedi#goto_command = "<leader>d"
-        let g:jedi#goto_assignments_command = "<leader>g"
-        let g:jedi#goto_stubs_command = "<leader>s"
-        let g:jedi#goto_definitions_command = ""
-        let g:jedi#documentation_command = "K"
-        let g:jedi#usages_command = "<leader>n"
-        let g:jedi#completions_command = "<C-Space>"
-        let g:jedi#rename_command = "<leader>r"
+        "------------ COC config-------------------"
+        "\'coc-pairs',
+        """
+        let g:coc_global_extensions = [
+                    \'coc-pyright',
+                    \'coc-json',
+                    \'coc-vimlsp',
+                    \'coc-marketplace',
+                    \'coc-xml',
+                    \'coc-snippets',
+                    \'coc-lists',
+                    \'coc-highlight'
+                    \]
+
+        " Use `[g` and `]g` to navigate diagnostics
+        " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+        nmap <silent> [g <Plug>(coc-diagnostic-prev)
+        nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+        " GoTo code navigation.
+        nmap <silent> gd <Plug>(coc-definition)
+        nmap <silent> gy <Plug>(coc-type-definition)
+        nmap <silent> gi <Plug>(coc-implementation)
+        nmap <silent> gr <Plug>(coc-references)
+        "------------ COC config-------------------"
+    "Plug 'davidhalter/jedi-vim'
+        "let g:jedi#environment_path = "D:/sw/miniconda3/envs/py39/"
+        "let g:jedi#auto_initialization = 1
+        "let g:jedi#auto_vim_configuration = 1
+        "let g:jedi#use_tabs_not_buffers = 1
+        "let g:jedi#use_splits_not_buffers = "left"
+        "let g:jedi#popup_on_dot = 0
+        "let g:jedi#popup_select_first = 0
+        "let g:jedi#show_call_signatures = "1"
+
+        "let g:jedi#goto_command = "<leader>d"
+        "let g:jedi#goto_assignments_command = "<leader>g"
+        "let g:jedi#goto_stubs_command = "<leader>s"
+        "let g:jedi#goto_definitions_command = ""
+        "let g:jedi#documentation_command = "K"
+        "let g:jedi#usages_command = "<leader>n"
+        "let g:jedi#completions_command = "<C-Space>"
+        "let g:jedi#rename_command = "<leader>r"
     Plug 'majutsushi/tagbar'
         map <Leader>tb :TagbarToggle<CR>      "快捷键设置
         let g:tagbar_ctags_bin=bundle_dir.'exe/ctags'          "ctags程序的路径
@@ -171,6 +176,8 @@ call plug#begin(bundle_dir)
         nnoremap <buffer> <leader>ad :ArduinoUploadAndSerial<CR>
         nnoremap <buffer> <leader>ab :ArduinoChooseBoard<CR>
         nnoremap <buffer> <leader>ap :ArduinoChooseProgrammer<CR>
+
+    Plug 'skywind3000/vim-terminal-help'
 call plug#end()
 
 
@@ -188,11 +195,13 @@ set ruler
 set invlist "display tab and space
 set listchars=tab:>-,trail:.,space:.
 set clipboard=unnamed
+
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 noremap <C-S> <esc>:w<cr>
+inoremap jk <esc>
 "let javascript_enable_domhtmlcss=1
 noremap <F4> :call RunTest()<CR>
 fun! RunTest()
@@ -201,35 +210,33 @@ fun! RunTest()
         let test_file_dir = join(['Test_', expand('%')],'')
         if filereadable(test_file_dir)
             echo(test_file_dir)
-            exec "!python " . test_file_dir
+            "exec "!python " . test_file_dir. "| iconv -f cp936 -t utf-8"
+            exec "!python % | iconv -f cp936 -t utf-8"
         else
             exec "!python %"
         endif
     endif
 endfunc "<<RunTest
 "插入断点
-noremap <F9> :call SetBreakPoint()<CR>
-"编辑和配置vimrc文件
-nnoremap <leader>ev :vsp $MYVIMRC<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
-nnoremap <Leader>pd :call InserDebugMsg()<CR>
-noremap <F5> :call Run()<CR>
+fun! InsertLineNumber()
+    "TODO 如果时数字则删除
+    " 插入当前行号
+    :execute "normal! a".line(".")." "
+endfunc
 fun! InserDebugMsg()
     "输出光标下的单词
-    :execute "normal viwyoprint('Dbg ".line(".").":"
-    normal p
-    normal a=', (
-    normal pa), '\n')
-    :execute 'normal "%:tp'
-    "normal I print
-    "let tmp = line(".")
-    "echo tmp
-    ":execute "normal Iprint('Dbg"
-    ":s/$/\=line('.'). ' '
+    ":execute "normal! viwyoprint('Dbg:"
+    ":execute "normal! a".shellescape(expand("%:t"))
+    ":execute "normal! a :".line(".").' '
+    ":execute "normal! pa=',"
+    ":execute "normal! pa)"
+    :execute "normal! viwyologging.debug('"
+    :execute "normal! pa='+json.dumps("
+    :execute "normal! pa,indent = 4))"
 endfunc
 fun! SetBreakPoint()
     :execute "normal Iimport ipdb as pdb;pdb.set_trace()\n"
-    echo "F9插入断点， 列出断点"
+    echo "F9插入断点， 列出断点命令还未想好"
 endfunc "<<SetBreakPoint
 fun! Run()
     exec "w"
@@ -253,5 +260,24 @@ if filereadable("cfg.vim")
    source cfg.vim
 endif
 
-colorscheme NeoSolarized
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+"autocmd BufReadPost *.json 
+colorscheme NeoSolarized "设置着色
 set encoding=utf-8
+set conceallevel=0 "json文件显示引号
+augroup key_map
+    autocmd!
+    noremap <F9> :call SetBreakPoint()<CR>
+    nnoremap <leader>dbg :call SetBreakPoint()<CR>
+    "编辑和配置vimrc文件
+    nnoremap <leader>ev :vsp $MYVIMRC<CR>
+    nnoremap <leader>sv :source $MYVIMRC<CR>
+    nnoremap <Leader>pd :call InserDebugMsg()<CR>
+    noremap <F5> :call Run()<CR>
+    nnoremap <Leader>l :call InsertLineNumber()<CR>
+    nnoremap <Leader>it "=strftime("%F %X")<CR>gP
+augroup end

@@ -1,0 +1,16 @@
+{
+    "coc.preferences.extensionUpdateCheck":"weekly",
+    "suggest.noselect":true,
+    "suggest.enablePreselect":false,
+    "list.previousKeymap":"<C-J>",
+    "list.nextKeymap":"<C-K>",
+    "coc.preferences.rootPatterns":[".git",".hg",".projections.json","cfg.vim"],
+    "python.analysis.autoSearchPaths":true,
+    "python.pythonPath": "d:/sw/Miniconda3/envs/py39/python.exe",
+    "python.analysis.extraPaths":[
+        "d:/sw/Miniconda3/envs/py39/",
+        "D:/sw/Miniconda3/envs/py39/Lib/site-packages",
+        "D:/sw/Miniconda3/envs/py39/Lib/site-packages/udsoncan",
+        "D:/gcbb/python/gPylib"
+    ] 
+}
