@@ -6,11 +6,11 @@
     "list.nextKeymap":"<C-K>",
     "coc.preferences.rootPatterns":[".git",".hg",".projections.json","cfg.vim"],
     "python.analysis.autoSearchPaths":true,
-    "python.pythonPath": "d:/sw/Miniconda3/envs/py39/python.exe",
+    "python.pythonPath": "d:/sw/anaconda3/python.exe",
     "python.analysis.extraPaths":[
-        "d:/sw/Miniconda3/envs/py39/",
-        "D:/sw/Miniconda3/envs/py39/Lib/site-packages",
-        "D:/sw/Miniconda3/envs/py39/Lib/site-packages/udsoncan",
+        "d:/sw/anaconda3/",
+        "D:/sw/anaconda3/Lib/site-packages",
+        "D:/sw/anaconda3/Lib/site-packages/udsoncan",
         "D:/gcbb/python/gPylib"
     ] 
 }

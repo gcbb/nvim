@@ -17,7 +17,7 @@ let mapleader = ","
 "
 let bundle_dir = 'd:/sw/vim/bundles/'
 set rtp+='D:/sw/vim/vimfiles/'
-let g:python3_host_prog = 'D:/sw/anaconda3/python.exe'
+let g:python3_host_prog = 'C:/Program Files/Python37/python.exe'
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -74,7 +74,7 @@ call plug#begin(bundle_dir)
         let g:SimpylFold_docstring_preview=1
 
     "Plug 'neoclide/coc.nvim' 
-    Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+    "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
     "Plug 'neoclide/coc.nvim', {'branch': 'release'}
         "------------ COC config-------------------"
         "\'coc-pairs',
@@ -139,8 +139,7 @@ call plug#begin(bundle_dir)
         map <F11> :MBEbp<CR>
         map <F12> :MBEbn<CR>
     Plug 'altercation/vim-colors-solarized'
-    "Plug 'iCyMind/NeoSolarized'
-    Plug 'overcache/NeoSolarized'
+    Plug 'iCyMind/NeoSolarized'
   
         " default value is "normal", Setting this option to "high" or "low" does use the 
         " same Solarized palette but simply shifts some values up or down in order to 
