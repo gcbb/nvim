@@ -5,12 +5,32 @@
     "list.previousKeymap":"<C-J>",
     "list.nextKeymap":"<C-K>",
     "coc.preferences.rootPatterns":[".git",".hg",".projections.json","cfg.vim"],
-    "python.analysis.autoSearchPaths":true,
+    "xml.java.home":"C:/Program Files/Java/jdk1.8.0_181",
     "python.pythonPath": "d:/sw/anaconda3/python.exe",
-    "python.analysis.extraPaths":[
-        "d:/sw/anaconda3/",
-        "D:/sw/anaconda3/Lib/site-packages",
-        "D:/sw/anaconda3/Lib/site-packages/udsoncan",
-        "D:/gcbb/python/gPylib"
-    ] 
+    //"python.analysis.autoSearchPaths":true,
+    // "python.analysis.extraPaths":[
+        //    "d:/sw/anaconda3/",
+        //   "D:/sw/anaconda3/Lib/site-packages",
+        //  "D:/sw/anaconda3/Lib/site-packages/udsoncan",
+        // "D:/gcbb/python/gPylib"
+        //], 
+    "languageserver": {
+//        "ccls": {
+ //           "command": "ccls",
+  //          "filetypes": ["c", "cc", "cpp", "c++"],
+   //         "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".root"],
+    //        "initializationOptions": {
+     //           "cache": {
+      //              "directory": ".cache/ccls"
+       //         },
+        //        "highlight": {"lsRanges": true }
+         //   }
+       // }
+      "coc-clangd": {
+        "command": "clangd",
+        "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
+        "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
+      }
+    }
 }
+

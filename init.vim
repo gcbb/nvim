@@ -8,6 +8,7 @@ set hidden " 允许在有未保存的修改时切换缓冲区，此时的修改�
 "set nowritebackup
 
 "set cmdheight = 2
+"logging.debug('"='+str("))
 set updatetime=100
 set shortmess+=c
 set termguicolors
@@ -15,10 +16,12 @@ set termguicolors
 let mapleader = ","
 "let g:ctrlp_map = '<leader>p'
 "
-let bundle_dir = 'd:/sw/vim/bundles/'
-set rtp+='D:/sw/vim/vimfiles/'
+"let bundle_dir = 'd:/sw/vim/bundles/'
+let bundle_dir = 'D:/gcbb/vim/bundles/'
+"set rtp+='D:/sw/vim/vimfiles/'
 let g:python3_host_prog = 'D:/sw/anaconda3/python.exe'
 " Use K to show documentation in preview window.
+
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -38,6 +41,7 @@ call plug#begin(bundle_dir)
         nmap <C-e> :Buffers<CR>
         let g:fzf_action = { 'ctrl-e': 'edit' }
     "plug 'ctrlpvim/ctrlp.vim'
+    "
         "let g:ctrlp_map = '<c-p>'
         "let g:ctrlp_cmd = 'ctrlp'
         "" 根据通配符来忽略不需要搜索的文件
@@ -59,7 +63,7 @@ call plug#begin(bundle_dir)
         "" narrow the list down with a word under cursor
         "nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
     Plug 'airblade/vim-rooter'
-        let g:rooter_patterns = ['cfg.vim', '.git']
+        let g:rooter_patterns = ['cfg.vim', '.git','.project','.vim']
     Plug 'mileszs/ack.vim'
         if executable('rg')
           let g:ackprg = 'rg --vimgrep'
@@ -74,20 +78,24 @@ call plug#begin(bundle_dir)
         let g:SimpylFold_docstring_preview=1
 
     "Plug 'neoclide/coc.nvim' 
-    Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
-    "Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    "Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
         "------------ COC config-------------------"
         "\'coc-pairs',
+        "\'coc-pyright',
+        "\'coc-ccls',
+        "\'coc-python',
         """
         let g:coc_global_extensions = [
-                    \'coc-pyright',
                     \'coc-json',
                     \'coc-vimlsp',
                     \'coc-marketplace',
                     \'coc-xml',
                     \'coc-snippets',
                     \'coc-lists',
-                    \'coc-highlight'
+                    \'coc-highlight',
+                    \'coc-pyright',
+                    \'coc-clangd'
                     \]
 
         " Use `[g` and `]g` to navigate diagnostics
@@ -100,6 +108,7 @@ call plug#begin(bundle_dir)
         nmap <silent> gy <Plug>(coc-type-definition)
         nmap <silent> gi <Plug>(coc-implementation)
         nmap <silent> gr <Plug>(coc-references)
+        nmap <leader>rn <Plug>(coc-rename)
         "------------ COC config-------------------"
     "Plug 'davidhalter/jedi-vim'
         "let g:jedi#environment_path = "D:/sw/miniconda3/envs/py39/"
@@ -119,6 +128,15 @@ call plug#begin(bundle_dir)
         "let g:jedi#usages_command = "<leader>n"
         "let g:jedi#completions_command = "<C-Space>"
         "let g:jedi#rename_command = "<leader>r"
+    Plug 'puremourning/vimspector'
+         " mnemonic 'di' = 'debug inspect' (pick your own, if you prefer!)
+        " for normal mode - the word under the cursor
+        nmap <Leader>di <Plug>VimspectorBalloonEval
+        " for visual mode, the visually selected text
+        xmap <Leader>di <Plug>VimspectorBalloonEval       
+        "let g:vimspector_enable_mappings = 'HUMAN'
+        let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
+        "packadd! vimspector
     Plug 'majutsushi/tagbar'
         map <Leader>tb :TagbarToggle<CR>      "快捷键设置
         let g:tagbar_ctags_bin=bundle_dir.'exe/ctags'          "ctags程序的路径
@@ -130,14 +148,14 @@ call plug#begin(bundle_dir)
     Plug 'jistr/vim-nerdtree-tabs'
       let NERDTreeIgnore=['.pyd','\.pyc$','__pycache_','.bak', '\~$'] "ignore files in NERDTree
       map <F2> <esc>:NERDTreeToggle<cr>
-    Plug 'fholgado/minibufexpl.vim'
-        let g:miniBufExplMapWindowNavVim = 1   
-        let g:miniBufExplMapWindowNavArrows = 1   
-        let g:miniBufExplMapCTabSwitchBufs = 1   
-        let g:miniBufExplModSelTarget = 1  
-        let g:miniBufExplMoreThanOne=0
-        map <F11> :MBEbp<CR>
-        map <F12> :MBEbn<CR>
+    "Plug 'fholgado/minibufexpl.vim'
+        "let g:miniBufExplMapWindowNavVim = 1   
+        "let g:miniBufExplMapWindowNavArrows = 1   
+        "let g:miniBufExplMapCTabSwitchBufs = 1   
+        "let g:miniBufExplModSelTarget = 1  
+        "let g:miniBufExplMoreThanOne=0
+        "map <F11> :MBEbp<CR>
+        "map <F12> :MBEbn<CR>
     Plug 'altercation/vim-colors-solarized'
     "Plug 'iCyMind/NeoSolarized'
     Plug 'overcache/NeoSolarized'
@@ -198,7 +216,7 @@ set ruler
 set invlist "display tab and space
 set listchars=tab:>-,trail:.,space:.
 set clipboard=unnamed
-
+":bufdo e
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
@@ -226,7 +244,20 @@ fun! InsertLineNumber()
     " 插入当前行号
     :execute "normal! a".line(".")." "
 endfunc
-fun! InserDebugMsg()
+fun! InserDebugMsg(mode)
+    "输出光标下的单词
+    if (a:mode != "json")
+        :execute "normal! viwyologging.debug('"
+        :execute "normal! pa='+str("
+        :execute "normal! pa))"
+    else
+        :execute "normal! viwyologging.debug('"
+        :execute "normal! pa='+json.dumps("
+        :execute "normal! pa,indent = 4))"
+    endif
+endfunc
+
+fun! InserDebugJsonMsg()
     "输出光标下的单词
     ":execute "normal! viwyoprint('Dbg:"
     ":execute "normal! a".shellescape(expand("%:t"))
@@ -238,16 +269,46 @@ fun! InserDebugMsg()
     :execute "normal! pa,indent = 4))"
 endfunc
 fun! SetBreakPoint()
+    " TODO 打开PDBRC 
+        " 且H 命令运行b 断点行
+        " 然后查找 查找相关断点,如果没有，就插入断点
     :execute "normal Iimport ipdb as pdb;pdb.set_trace()\n"
     echo "F9插入断点， 列出断点命令还未想好"
 endfunc "<<SetBreakPoint
+
+fun! SetBreakPointPdbrc()
+    """" TODO 打开PDBRC 
+        """" 且H 命令运行b 断点行
+        """" 然后查找pdbrc 查找相关断点,如果没有，就插入断点
+        
+    ":execute ":H b ".expand('%:p').':'.line(".")
+    "
+    let t_line = line(".")
+python3 <<EOF
+import vim
+c_line=vim.eval('t_line')
+vim_prj.add_bps(c_line)
+vim_prj.show_breaks()
+vim_prj.save_bps()
+EOF
+endfunc
+
 fun! Run()
     exec "w"
     if &filetype == 'python'
         "let dir= getcwd()
         "let tmp = split(dir,'Test_')
         "echo(tmp)
-        exec "!python  %"
+        "exec "!python  %"
+        exec ':H python '.expand('%')
+    endif
+endfunc
+
+fun! RunDbug()
+    exec "w"
+    if &filetype == 'python'
+        
+        exec ':H python -m ipdb '.expand('%')
     endif
 endfunc
 noremap <F8> :call Pep8()<CR>
@@ -259,28 +320,46 @@ fun! Pep8()
         "exec "!flake8 %"
     endif
 endfunc
+
 if filereadable("cfg.vim")
-   source cfg.vim
+    source cfg.vim
 endif
 
 function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
+    call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+    copen
+    cc
 endfunction
 "autocmd BufReadPost *.json 
 colorscheme NeoSolarized "设置着色
 set encoding=utf-8
 set conceallevel=0 "json文件显示引号
+
+" 测试断点标识, 有VIMSPECTOR 该函数不用了
+python3 <<EOF
+vim_ipython_path ='D:/gcbb/vim/nvim'# vim.eval("expand('<sfile>:h')")
+sys.path.append(vim_ipython_path)
+from gdebug import vim_project
+#vim_prj = vim_project()
+
+EOF
+
 augroup key_map
     autocmd!
-    noremap <F9> :call SetBreakPoint()<CR>
-    nnoremap <leader>dbg :call SetBreakPoint()<CR>
+    "noremap <F9> :call SetBreakPoint()<CR>
+    "noremap <F9> :call SetBreakPointPdbrc()<CR>
+    nnoremap <leader>dbg :call SetBreakPointPdbrc()<CR>
     "编辑和配置vimrc文件
     nnoremap <leader>ev :vsp $MYVIMRC<CR>
     nnoremap <leader>sv :source $MYVIMRC<CR>
-    nnoremap <Leader>pd :call InserDebugMsg()<CR>
-    noremap <F5> :call Run()<CR>
+    nnoremap <Leader>pd :call InserDebugMsg("normal")<CR>
+    nnoremap <Leader>pj :call InserDebugMsg("json")<CR>
+    "noremap <F5> :call Run()<CR>
+    "noremap <F6> :call RunDbug()<CR>
+    "nmap <F5> <Plug>VimspectorContinue
     nnoremap <Leader>l :call InsertLineNumber()<CR>
     nnoremap <Leader>it "=strftime("%F %X")<CR>gP
+    "替换\\为/
+    nnoremap <Leader>rs :s/\\/\//g<CR>
+
 augroup end
