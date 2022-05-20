@@ -19,7 +19,7 @@ let mapleader = ","
 "let bundle_dir = 'd:/sw/vim/bundles/'
 let bundle_dir = 'D:/gcbb/vim/bundles/'
 "set rtp+='D:/sw/vim/vimfiles/'
-let g:python3_host_prog = 'D:/sw/anaconda3/python.exe'
+let g:python3_host_prog = 'D:/sw/miniconda3/envs/py310/python.exe'
 " Use K to show documentation in preview window.
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -36,10 +36,15 @@ endfunction
 call plug#begin(bundle_dir)
      Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
      Plug 'junegunn/fzf.vim'
+     Plug 'airblade/vim-rooter'
+        let g:rooter_patterns = ['cfg.vim', '.git','.project','.vim']
+        let g:rooter_change_directory_for_non_project_files = 'current'
+     Plug 'junegunn/fzf.vim'
         nnoremap <c-f> :FZF<CR>
         nmap <C-p> :Files<CR>
         nmap <C-e> :Buffers<CR>
         let g:fzf_action = { 'ctrl-e': 'edit' }
+
     "plug 'ctrlpvim/ctrlp.vim'
     "
         "let g:ctrlp_map = '<c-p>'
@@ -62,8 +67,6 @@ call plug#begin(bundle_dir)
         "nnoremap <Leader>fu :CtrlPFunky<Cr>
         "" narrow the list down with a word under cursor
         "nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-    Plug 'airblade/vim-rooter'
-        let g:rooter_patterns = ['cfg.vim', '.git','.project','.vim']
     Plug 'mileszs/ack.vim'
         if executable('rg')
           let g:ackprg = 'rg --vimgrep'
@@ -77,8 +80,7 @@ call plug#begin(bundle_dir)
         nnoremap <space> za
         let g:SimpylFold_docstring_preview=1
 
-    "Plug 'neoclide/coc.nvim' 
-    "Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+        "Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
         "------------ COC config-------------------"
         "\'coc-pairs',
@@ -129,13 +131,13 @@ call plug#begin(bundle_dir)
         "let g:jedi#completions_command = "<C-Space>"
         "let g:jedi#rename_command = "<leader>r"
     Plug 'puremourning/vimspector'
+        " for visual mode, the visually selected text
+        "let g:vimspector_enable_mappings = 'HUMAN'
+        let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
          " mnemonic 'di' = 'debug inspect' (pick your own, if you prefer!)
         " for normal mode - the word under the cursor
         nmap <Leader>di <Plug>VimspectorBalloonEval
-        " for visual mode, the visually selected text
-        xmap <Leader>di <Plug>VimspectorBalloonEval       
-        "let g:vimspector_enable_mappings = 'HUMAN'
-        let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
+        nmap <Leader>st <Plug>VimspectorReset
         "packadd! vimspector
     Plug 'majutsushi/tagbar'
         map <Leader>tb :TagbarToggle<CR>      "快捷键设置
@@ -224,20 +226,6 @@ nnoremap <C-H> <C-W><C-H>
 noremap <C-S> <esc>:w<cr>
 inoremap jk <esc>
 "let javascript_enable_domhtmlcss=1
-noremap <F4> :call RunTest()<CR>
-fun! RunTest()
-    exec "w"
-    if &filetype == 'python'
-        let test_file_dir = join(['Test_', expand('%')],'')
-        if filereadable(test_file_dir)
-            echo(test_file_dir)
-            "exec "!python " . test_file_dir. "| iconv -f cp936 -t utf-8"
-            exec "!python % | iconv -f cp936 -t utf-8"
-        else
-            exec "!python %"
-        endif
-    endif
-endfunc "<<RunTest
 "插入断点
 fun! InsertLineNumber()
     "TODO 如果时数字则删除
@@ -293,6 +281,19 @@ vim_prj.save_bps()
 EOF
 endfunc
 
+fun! RunTest()
+    exec "w"
+    if &filetype == 'python'
+        let test_file_dir = join(['Test_', expand('%')],'')
+        if filereadable(test_file_dir)
+            echo(test_file_dir)
+            "exec "!python " . test_file_dir. "| iconv -f cp936 -t utf-8"
+            exec "!python % | iconv -f cp936 -t utf-8"
+        else
+            exec ':H python '.expand('%')
+        endif
+    endif
+endfunc "<<RunTest
 fun! Run()
     exec "w"
     if &filetype == 'python'
@@ -347,8 +348,9 @@ EOF
 augroup key_map
     autocmd!
     "noremap <F9> :call SetBreakPoint()<CR>
+    noremap <leader>dbg :call SetBreakPoint()<CR>
     "noremap <F9> :call SetBreakPointPdbrc()<CR>
-    nnoremap <leader>dbg :call SetBreakPointPdbrc()<CR>
+    "nnoremap <leader>dbg :call SetBreakPointPdbrc()<CR>
     "编辑和配置vimrc文件
     nnoremap <leader>ev :vsp $MYVIMRC<CR>
     nnoremap <leader>sv :source $MYVIMRC<CR>
@@ -361,5 +363,5 @@ augroup key_map
     nnoremap <Leader>it "=strftime("%F %X")<CR>gP
     "替换\\为/
     nnoremap <Leader>rs :s/\\/\//g<CR>
-
+    noremap <F4> :call RunTest()<CR>
 augroup end

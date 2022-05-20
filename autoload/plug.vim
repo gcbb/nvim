@@ -774,6 +774,7 @@ function! s:infer_properties(name, repo)
         throw printf('Invalid argument: %s (implicit `vim-scripts'' expansion is deprecated)', repo)
       endif
       let fmt = get(g:, 'plug_url_format', 'https://git::@github.com/%s.git')
+      "let fmt = get(g:, 'plug_url_format', 'http://git::@hub.fastgit.org/%s.git')
       let uri = printf(fmt, repo)
     endif
     return { 'dir': s:dirpath(g:plug_home.'/'.a:name), 'uri': uri }
@@ -1168,8 +1169,8 @@ function! s:update_impl(pull, force, args) abort
     let s:git_terminal_prompt = exists('$GIT_TERMINAL_PROMPT') ? $GIT_TERMINAL_PROMPT : ''
     let $GIT_TERMINAL_PROMPT = 0
     for plug in values(todo)
-      let plug.uri = substitute(plug.uri,
-            \ '^https://git::@github\.com', 'https://github.com', '')
+        "let plug.uri = substitute(plug.uri,  '^https://git::@hub.fastgit\.org', 'https://hub.fastgit.org', '')
+      let plug.uri = substitute(plug.uri,  '^https://git::@github\.com', 'https://github.com', '')
     endfor
   endif
 
