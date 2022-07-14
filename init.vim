@@ -19,21 +19,9 @@ let mapleader = ","
 "let bundle_dir = 'd:/sw/vim/bundles/'
 let bundle_dir = 'D:/gcbb/vim/bundles/'
 "set rtp+='D:/sw/vim/vimfiles/'
-let g:python3_host_prog = 'D:/sw/miniconda3/envs/py310/python.exe'
+let g:python3_host_prog = 'D:/sw/miniconda3/python.exe'
 " Use K to show documentation in preview window.
-
-
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-"call plug#begin('C:/Users/Administrator/AppData/Local/nvim/plugged')
+:lua require('plugins')
 call plug#begin(bundle_dir)
      Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
      Plug 'junegunn/fzf.vim'
@@ -82,36 +70,36 @@ call plug#begin(bundle_dir)
         let g:SimpylFold_docstring_preview=1
 
         "Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    "Plug 'neoclide/coc.nvim', {'branch': 'release'}
         "------------ COC config-------------------"
         "\'coc-pairs',
         "\'coc-pyright',
         "\'coc-ccls',
         "\'coc-python',
         """
-        let g:coc_global_extensions = [
-                    \'coc-json',
-                    \'coc-vimlsp',
-                    \'coc-marketplace',
-                    \'coc-xml',
-                    \'coc-snippets',
-                    \'coc-lists',
-                    \'coc-highlight',
-                    \'coc-pyright',
-                    \'coc-clangd'
-                    \]
+        "let g:coc_global_extensions = [
+                    "\'coc-json',
+                    "\'coc-vimlsp',
+                    "\'coc-marketplace',
+                    "\'coc-xml',
+                    "\'coc-snippets',
+                    "\'coc-lists',
+                    "\'coc-highlight',
+                    "\'coc-pyright',
+                    "\'coc-clangd'
+                    "\]
 
         " Use `[g` and `]g` to navigate diagnostics
         " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-        nmap <silent> [g <Plug>(coc-diagnostic-prev)
-        nmap <silent> ]g <Plug>(coc-diagnostic-next)
+        "nmap <silent> [g <Plug>(coc-diagnostic-prev)
+        "nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-        " GoTo code navigation.
-        nmap <silent> gd <Plug>(coc-definition)
-        nmap <silent> gy <Plug>(coc-type-definition)
-        nmap <silent> gi <Plug>(coc-implementation)
-        nmap <silent> gr <Plug>(coc-references)
-        nmap <leader>rn <Plug>(coc-rename)
+        "" GoTo code navigation.
+        "nmap <silent> gd <Plug>(coc-definition)
+        "nmap <silent> gy <Plug>(coc-type-definition)
+        "nmap <silent> gi <Plug>(coc-implementation)
+        "nmap <silent> gr <Plug>(coc-references)
+        "nmap <leader>rn <Plug>(coc-rename)
         "------------ COC config-------------------"
     "Plug 'davidhalter/jedi-vim'
         "let g:jedi#environment_path = "D:/sw/miniconda3/envs/py39/"
@@ -142,7 +130,7 @@ call plug#begin(bundle_dir)
         "packadd! vimspector
     Plug 'majutsushi/tagbar'
         map <Leader>tb :TagbarToggle<CR>      "快捷键设置
-        let g:tagbar_ctags_bin=bundle_dir.'exe/ctags'          "ctags程序的路径
+        let g:tagbar_ctags_bin=stdpath("config").'/exe/ctags'          "ctags程序的路径
         let g:tagbar_width=30                   "窗口宽度的设置
         noremap <F3> :Tagbar<CR>
         "autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()  "如果是c语言的程序的话，tagbar自动开启
@@ -202,6 +190,7 @@ call plug#begin(bundle_dir)
         nnoremap <buffer> <leader>ap :ArduinoChooseProgrammer<CR>
 
     Plug 'skywind3000/vim-terminal-help'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 
@@ -327,6 +316,17 @@ if filereadable("cfg.vim")
     source cfg.vim
 endif
 
+"nnoremap <silent> K :call <SID>show_documentation()<CR>
+"function! s:show_documentation()
+  "if (index(['vim','help'], &filetype) >= 0)
+    "execute 'h '.expand('<cword>')
+  "elseif (coc#rpc#ready())
+    "call CocActionAsync('doHover')
+  "else
+    "execute '!' . &keywordprg . " " . expand('<cword>')
+  "endif
+"endfunction
+"
 function! s:build_quickfix_list(lines)
     call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
     copen
@@ -354,7 +354,7 @@ augroup key_map
     "nnoremap <leader>dbg :call SetBreakPointPdbrc()<CR>
     "编辑和配置vimrc文件
     nnoremap <leader>ev :vsp $MYVIMRC<CR>
-    nnoremap <leader>sv :source $MYVIMRC<CR>
+    nnoremap <leader>rv :source $MYVIMRC<CR>
     nnoremap <Leader>pd :call InserDebugMsg("normal")<CR>
     nnoremap <Leader>pj :call InserDebugMsg("json")<CR>
     "noremap <F5> :call Run()<CR>
@@ -366,3 +366,4 @@ augroup key_map
     nnoremap <Leader>rs :s/\\/\//g<CR>
     noremap <F4> :call RunTest()<CR>
 augroup end
+

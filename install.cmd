@@ -1,5 +1,4 @@
 @PowerShell -ExecutionPolicy Bypass -Command Invoke-Expression $('$args=@(^&{$args} %*);'+[String]::Join(';',(Get-Content '%~f0') -notmatch '^^@PowerShell.*EOF$')) & goto :EOF
-
 echo "        /######                                     /##    /##/##             "
 echo "       /##__  ##                                   | ##   | #|__/             "
 echo "      | ##  \__/ /######  /######  /####### /######| ##   | ##/##/######/#### "
@@ -111,6 +110,9 @@ if (!(Test-Path "$HOME\AppData\Local\nvim")) {
   echo "[OK] $HOME\AppData\Local\nvim 已存在"
   sleep 1
 }
+
+echo "安装packer"
+git clone https://github.com/wbthomason/packer.nvim "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
 
 echo ""
 echo "安装已完成!"
