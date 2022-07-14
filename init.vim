@@ -21,7 +21,23 @@ let bundle_dir = 'D:/gcbb/vim/bundles/'
 "set rtp+='D:/sw/vim/vimfiles/'
 let g:python3_host_prog = 'D:/sw/miniconda3/python.exe'
 " Use K to show documentation in preview window.
-:lua require('plugins')
+
+lua <<EOF
+require("keybindings")
+require('plugins')
+require("plugin-config.telescope")
+require("plugin-config.dashboard")
+require("plugin-config.project")
+require('plugin-config.nvim-treesitter')
+-- 内置LSP
+require("lsp.setup")
+require("lsp.cmp")
+require("lsp.ui")
+-- 格式化
+-- require("lsp.formatter")
+require("lsp.null-ls")
+EOF
+
 call plug#begin(bundle_dir)
      Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
      Plug 'junegunn/fzf.vim'
@@ -190,9 +206,7 @@ call plug#begin(bundle_dir)
         nnoremap <buffer> <leader>ap :ArduinoChooseProgrammer<CR>
 
     Plug 'skywind3000/vim-terminal-help'
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
-
 
 set ts=4
 set shiftwidth=4
@@ -338,13 +352,13 @@ set encoding=utf-8
 set conceallevel=0 "json文件显示引号
 
 " 测试断点标识, 有VIMSPECTOR 该函数不用了
-python3 <<EOF
-vim_ipython_path ='D:/gcbb/vim/nvim'# vim.eval("expand('<sfile>:h')")
-sys.path.append(vim_ipython_path)
-from gdebug import vim_project
-#vim_prj = vim_project()
+"python3 <<EOF
+"vim_ipython_path ='D:/gcbb/vim/nvim'# vim.eval("expand('<sfile>:h')")
+"sys.path.append(vim_ipython_path)
+"from gdebug import vim_project
+"#vim_prj = vim_project()
 
-EOF
+"EOF
 
 augroup key_map
     autocmd!
