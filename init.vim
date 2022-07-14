@@ -22,6 +22,7 @@ let bundle_dir = 'D:/gcbb/vim/bundles/'
 let g:python3_host_prog = 'D:/sw/miniconda3/envs/py310/python.exe'
 " Use K to show documentation in preview window.
 
+
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
