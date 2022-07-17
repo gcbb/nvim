@@ -1,5 +1,5 @@
  local lsp_installer = require("nvim-lsp-installer")
-require("nvim-lsp-installer").setup({
+lsp_installer.setup({
   -- 自动安装 Language Servers
   automatic_installation = true,
 })
