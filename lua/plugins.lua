@@ -1,4 +1,14 @@
 -- Only required if you have packer configured as `opt`
+---@diagnostic disable: undefined-global
+--在没有安装packer的电脑上，自动安装packer插件n
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+    print("down packer")
+    fn.system({'git', 'clone', '--depth', '1', 'https://gitclone.com/github.com/wbthomason/packer.nvim', install_path})	--默认地址
+    vim.cmd 'packadd packer.nvim'
+end
+
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function()
@@ -79,5 +89,15 @@ return require('packer').startup(function()
     use("folke/lua-dev.nvim")
     -- JSON 增强
     use("b0o/schemastore.nvim")
-
+    config = {
+        max_jobs = 16,
+        git = {
+            default_url_format = "https://gitclone.com/github.com/%s"
+        },
+        display = {
+            open_fn = function()
+                return require('packer.util').float({ border = 'single' })
+            end
+        }
+    }
 end)

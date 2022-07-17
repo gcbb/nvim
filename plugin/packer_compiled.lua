@@ -44,8 +44,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "C:\\Users\\gcbb\\AppData\\Local\\Temp\\nvim\\packer_hererocks\\2.1.0-beta3\\share\\lua\\5.1\\?.lua;C:\\Users\\gcbb\\AppData\\Local\\Temp\\nvim\\packer_hererocks\\2.1.0-beta3\\share\\lua\\5.1\\?\\init.lua;C:\\Users\\gcbb\\AppData\\Local\\Temp\\nvim\\packer_hererocks\\2.1.0-beta3\\lib\\luarocks\\rocks-5.1\\?.lua;C:\\Users\\gcbb\\AppData\\Local\\Temp\\nvim\\packer_hererocks\\2.1.0-beta3\\lib\\luarocks\\rocks-5.1\\?\\init.lua"
-local install_cpath_pattern = "C:\\Users\\gcbb\\AppData\\Local\\Temp\\nvim\\packer_hererocks\\2.1.0-beta3\\lib\\lua\\5.1\\?.so"
+local package_path_str = "C:\\Users\\hutao2\\AppData\\Local\\Temp\\nvim\\packer_hererocks\\2.1.0-beta3\\share\\lua\\5.1\\?.lua;C:\\Users\\hutao2\\AppData\\Local\\Temp\\nvim\\packer_hererocks\\2.1.0-beta3\\share\\lua\\5.1\\?\\init.lua;C:\\Users\\hutao2\\AppData\\Local\\Temp\\nvim\\packer_hererocks\\2.1.0-beta3\\lib\\luarocks\\rocks-5.1\\?.lua;C:\\Users\\hutao2\\AppData\\Local\\Temp\\nvim\\packer_hererocks\\2.1.0-beta3\\lib\\luarocks\\rocks-5.1\\?\\init.lua"
+local install_cpath_pattern = "C:\\Users\\hutao2\\AppData\\Local\\Temp\\nvim\\packer_hererocks\\2.1.0-beta3\\lib\\lua\\5.1\\?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -57,7 +57,7 @@ end
 time([[Luarocks path setup]], false)
 time([[try_loadstring definition]], true)
 local function try_loadstring(s, component, name)
-  local success, result = pcall(loadstring(s), name, _G.packer_plugins[name])
+  local success, result = pcall(loadstring(s))
   if not success then
     vim.schedule(function()
       vim.api.nvim_notify('packer.nvim: Error running ' .. component .. ' for ' .. name .. ': ' .. result, vim.log.levels.ERROR, {})
@@ -73,80 +73,143 @@ _G.packer_plugins = {
     commands = { "ALEEnable" },
     config = { "vim.cmd[[ALEEnable]]" },
     loaded = false,
-    needs_bufread = true,
-    only_cond = false,
-    path = "C:\\Users\\gcbb\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\ale",
-    url = "https://github.com/w0rp/ale"
+    needs_bufread = false,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\ale"
+  },
+  ["cmp-buffer"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-buffer"
+  },
+  ["cmp-cmdline"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-cmdline"
+  },
+  ["cmp-nvim-lsp"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-nvim-lsp"
+  },
+  ["cmp-nvim-lsp-signature-help"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-nvim-lsp-signature-help"
+  },
+  ["cmp-path"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-path"
+  },
+  ["cmp-vsnip"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-vsnip"
   },
   ["completion-nvim"] = {
-    after = { "vim-vsnip", "vim-vsnip-integ" },
+    after = { "vim-vsnip-integ" },
     loaded = false,
     needs_bufread = false,
-    path = "C:\\Users\\gcbb\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\completion-nvim",
-    url = "https://github.com/haorenW1025/completion-nvim"
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\completion-nvim"
+  },
+  ["dashboard-nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\dashboard-nvim"
+  },
+  ["formatter.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\formatter.nvim"
+  },
+  ["friendly-snippets"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\friendly-snippets"
+  },
+  ["lspkind-nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lspkind-nvim"
+  },
+  ["lspsaga.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lspsaga.nvim"
+  },
+  ["lua-dev.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lua-dev.nvim"
   },
   ["markdown-preview.nvim"] = {
     commands = { "MarkdownPreview" },
     loaded = false,
     needs_bufread = false,
-    only_cond = false,
-    path = "C:\\Users\\gcbb\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\markdown-preview.nvim",
-    url = "https://github.com/iamcco/markdown-preview.nvim"
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\markdown-preview.nvim"
+  },
+  ["null-ls.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\null-ls.nvim"
+  },
+  ["nvim-cmp"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-cmp"
   },
   ["nvim-lsp-installer"] = {
     loaded = true,
-    path = "C:\\Users\\gcbb\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-lsp-installer",
-    url = "https://github.com/williamboman/nvim-lsp-installer"
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-lsp-installer"
+  },
+  ["nvim-lsp-ts-utils"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-lsp-ts-utils"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
-    path = "C:\\Users\\gcbb\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-lspconfig",
-    url = "https://github.com/neovim/nvim-lspconfig"
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-lspconfig"
   },
   ["nvim-treesitter"] = {
     loaded = true,
-    path = "C:\\Users\\gcbb\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-treesitter",
-    url = "https://github.com/nvim-treesitter/nvim-treesitter"
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-treesitter"
   },
   ["packer.nvim"] = {
     loaded = true,
-    path = "C:\\Users\\gcbb\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\packer.nvim",
-    url = "https://github.com/wbthomason/packer.nvim"
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\packer.nvim"
+  },
+  ["plenary.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\plenary.nvim"
+  },
+  ["project.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\project.nvim"
+  },
+  ["schemastore.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\schemastore.nvim"
+  },
+  ["telescope-env.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope-env.nvim"
+  },
+  ["telescope-ui-select.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope-ui-select.nvim"
+  },
+  ["telescope.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope.nvim"
   },
   ["vim-dispatch"] = {
     commands = { "Dispatch", "Make", "Focus", "Start" },
     loaded = false,
     needs_bufread = false,
-    only_cond = false,
-    path = "C:\\Users\\gcbb\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-dispatch",
-    url = "https://github.com/tpope/vim-dispatch"
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-dispatch"
   },
   ["vim-matchup"] = {
-    after_files = { "C:\\Users\\gcbb\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-matchup\\after\\plugin\\matchit.vim" },
     loaded = false,
-    needs_bufread = true,
-    only_cond = false,
-    path = "C:\\Users\\gcbb\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-matchup",
-    url = "https://github.com/andymass/vim-matchup"
+    needs_bufread = false,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-matchup"
   },
   ["vim-vsnip"] = {
-    load_after = {
-      ["completion-nvim"] = true
-    },
-    loaded = false,
-    needs_bufread = false,
-    path = "C:\\Users\\gcbb\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-vsnip",
-    url = "https://github.com/hrsh7th/vim-vsnip"
+    loaded = true,
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-vsnip"
   },
   ["vim-vsnip-integ"] = {
-    after_files = { "C:\\Users\\gcbb\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-vsnip-integ\\after\\plugin\\vsnip_integ.vim" },
     load_after = {
       ["completion-nvim"] = true
     },
     loaded = false,
     needs_bufread = false,
-    path = "C:\\Users\\gcbb\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-vsnip-integ",
-    url = "https://github.com/hrsh7th/vim-vsnip-integ"
+    path = "C:\\Users\\hutao2\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-vsnip-integ"
   }
 }
 
@@ -154,29 +217,29 @@ time([[Defining packer_plugins]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Focus lua require("packer.load")({'vim-dispatch'}, { cmd = "Focus", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Start lua require("packer.load")({'vim-dispatch'}, { cmd = "Start", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file MarkdownPreview lua require("packer.load")({'markdown-preview.nvim'}, { cmd = "MarkdownPreview", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file ALEEnable lua require("packer.load")({'ale'}, { cmd = "ALEEnable", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Dispatch lua require("packer.load")({'vim-dispatch'}, { cmd = "Dispatch", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Make lua require("packer.load")({'vim-dispatch'}, { cmd = "Make", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file MarkdownPreview lua require("packer.load")({'markdown-preview.nvim'}, { cmd = "MarkdownPreview", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Dispatch lua require("packer.load")({'vim-dispatch'}, { cmd = "Dispatch", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Make lua require("packer.load")({'vim-dispatch'}, { cmd = "Make", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Focus lua require("packer.load")({'vim-dispatch'}, { cmd = "Focus", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Start lua require("packer.load")({'vim-dispatch'}, { cmd = "Start", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file ALEEnable lua require("packer.load")({'ale'}, { cmd = "ALEEnable", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
 time([[Defining lazy-load commands]], false)
 
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
+vim.cmd [[au FileType racket ++once lua require("packer.load")({'ale'}, { ft = "racket" }, _G.packer_plugins)]]
+vim.cmd [[au FileType tex ++once lua require("packer.load")({'ale'}, { ft = "tex" }, _G.packer_plugins)]]
 vim.cmd [[au FileType c ++once lua require("packer.load")({'ale'}, { ft = "c" }, _G.packer_plugins)]]
+vim.cmd [[au FileType vim ++once lua require("packer.load")({'ale'}, { ft = "vim" }, _G.packer_plugins)]]
 vim.cmd [[au FileType sh ++once lua require("packer.load")({'ale'}, { ft = "sh" }, _G.packer_plugins)]]
+vim.cmd [[au FileType zsh ++once lua require("packer.load")({'ale'}, { ft = "zsh" }, _G.packer_plugins)]]
 vim.cmd [[au FileType bash ++once lua require("packer.load")({'ale'}, { ft = "bash" }, _G.packer_plugins)]]
 vim.cmd [[au FileType cpp ++once lua require("packer.load")({'ale'}, { ft = "cpp" }, _G.packer_plugins)]]
 vim.cmd [[au FileType cmake ++once lua require("packer.load")({'ale'}, { ft = "cmake" }, _G.packer_plugins)]]
 vim.cmd [[au FileType html ++once lua require("packer.load")({'ale'}, { ft = "html" }, _G.packer_plugins)]]
 vim.cmd [[au FileType markdown ++once lua require("packer.load")({'ale'}, { ft = "markdown" }, _G.packer_plugins)]]
-vim.cmd [[au FileType racket ++once lua require("packer.load")({'ale'}, { ft = "racket" }, _G.packer_plugins)]]
-vim.cmd [[au FileType tex ++once lua require("packer.load")({'ale'}, { ft = "tex" }, _G.packer_plugins)]]
-vim.cmd [[au FileType vim ++once lua require("packer.load")({'ale'}, { ft = "vim" }, _G.packer_plugins)]]
-vim.cmd [[au FileType zsh ++once lua require("packer.load")({'ale'}, { ft = "zsh" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
@@ -188,6 +251,5 @@ if should_profile then save_profiles() end
 end)
 
 if not no_errors then
-  error_msg = error_msg:gsub('"', '\\"')
   vim.api.nvim_command('echohl ErrorMsg | echom "Error in packer_compiled: '..error_msg..'" | echom "Please check your config for correctness" | echohl None')
 end

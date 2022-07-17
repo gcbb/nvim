@@ -112,7 +112,7 @@ if (!(Test-Path "$HOME\AppData\Local\nvim")) {
 }
 
 echo "安装packer"
-git clone https://github.com/wbthomason/packer.nvim "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
+git clone https://gitclone.com/github.com/wbthomason/packer.nvim "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
 
 echo ""
 echo "安装已完成!"
