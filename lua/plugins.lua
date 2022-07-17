@@ -10,7 +10,11 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 vim.cmd [[packadd packer.nvim]]
-
+require('packer').init({
+    git = {
+            default_url_format = "https://gitclone.com/github.com/%s"
+    }
+})
 return require('packer').startup(function()
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
@@ -89,15 +93,4 @@ return require('packer').startup(function()
     use("folke/lua-dev.nvim")
     -- JSON 增强
     use("b0o/schemastore.nvim")
-    config = {
-        max_jobs = 16,
-        git = {
-            default_url_format = "https://gitclone.com/github.com/%s"
-        },
-        display = {
-            open_fn = function()
-                return require('packer.util').float({ border = 'single' })
-            end
-        }
-    }
 end)
