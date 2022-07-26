@@ -6,8 +6,8 @@
     "list.nextKeymap":"<C-K>",
     "coc.preferences.rootPatterns":[".git",".hg",".projections.json","cfg.vim"],
     "xml.java.home":"D:/sw/Java/jdk-18",
-    //"python.pythonPath": "d:/sw/anaconda3/python.exe",
-    "python.pythonPath": "D:/sw/miniconda3/envs/py310/python.exe",
+    "python.pythonPath": "d:/sw/anaconda3/python.exe",
+   // "python.pythonPath": "D:/sw/miniconda3/envs/py310/python.exe",
 
     "vetur.trace.server": "verbose",
     //"python.analysis.autoSearchPaths":true,
@@ -34,6 +34,7 @@
         "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
         "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
       }
+
     }
 }
 

@@ -23,19 +23,19 @@ let g:python3_host_prog = 'D:/sw/miniconda3/python.exe'
 " Use K to show documentation in preview window.
 
 lua <<EOF
-require("keybindings")
-require('plugins')
-require("plugin-config.telescope")
-require("plugin-config.dashboard")
-require("plugin-config.project")
-require('plugin-config.nvim-treesitter')
--- 内置LSP
-require("lsp.setup")
-require("lsp.cmp")
-require("lsp.ui")
--- 格式化
--- require("lsp.formatter")
-require("lsp.null-ls")
+    require("keybindings")
+    require('plugins')
+    --require("plugin-config.telescope")
+    --require("plugin-config.dashboard")
+    --require("plugin-config.project")
+    -- require('plugin-config.nvim-treesitter')
+    -- 内置LSP
+    -- require("lsp.setup")
+    -- require("lsp.cmp")
+    -- require("lsp.ui")
+    -- 格式化
+    -- require("lsp.formatter")
+    --require("lsp.null-ls")
 EOF
 
 call plug#begin(bundle_dir)
@@ -85,7 +85,7 @@ call plug#begin(bundle_dir)
         nnoremap <space> za
         let g:SimpylFold_docstring_preview=1
 
-        "Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
+        Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
     "Plug 'neoclide/coc.nvim', {'branch': 'release'}
         "------------ COC config-------------------"
         "\'coc-pairs',
@@ -93,29 +93,29 @@ call plug#begin(bundle_dir)
         "\'coc-ccls',
         "\'coc-python',
         """
-        "let g:coc_global_extensions = [
-                    "\'coc-json',
-                    "\'coc-vimlsp',
-                    "\'coc-marketplace',
-                    "\'coc-xml',
-                    "\'coc-snippets',
-                    "\'coc-lists',
-                    "\'coc-highlight',
-                    "\'coc-pyright',
-                    "\'coc-clangd'
-                    "\]
+        let g:coc_global_extensions = [
+                    \'coc-json',
+                    \'coc-vimlsp',
+                    \'coc-marketplace',
+                    \'coc-xml',
+                    \'coc-snippets',
+                    \'coc-lists',
+                    \'coc-highlight',
+                    \'coc-pyright',
+                    \'coc-clangd'
+                    \]
 
-        " Use `[g` and `]g` to navigate diagnostics
-        " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-        "nmap <silent> [g <Plug>(coc-diagnostic-prev)
-        "nmap <silent> ]g <Plug>(coc-diagnostic-next)
+         "Use `[g` and `]g` to navigate diagnostics
+         "Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+        nmap <silent> [g <Plug>(coc-diagnostic-prev)
+        nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-        "" GoTo code navigation.
-        "nmap <silent> gd <Plug>(coc-definition)
-        "nmap <silent> gy <Plug>(coc-type-definition)
-        "nmap <silent> gi <Plug>(coc-implementation)
-        "nmap <silent> gr <Plug>(coc-references)
-        "nmap <leader>rn <Plug>(coc-rename)
+        " GoTo code navigation.
+        nmap <silent> gd <Plug>(coc-definition)
+        nmap <silent> gy <Plug>(coc-type-definition)
+        nmap <silent> gi <Plug>(coc-implementation)
+        nmap <silent> gr <Plug>(coc-references)
+        nmap <leader>rn <Plug>(coc-rename)
         "------------ COC config-------------------"
     "Plug 'davidhalter/jedi-vim'
         "let g:jedi#environment_path = "D:/sw/miniconda3/envs/py39/"
