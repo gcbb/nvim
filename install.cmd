@@ -114,6 +114,9 @@ if (!(Test-Path "$HOME\AppData\Local\nvim")) {
 echo "安装packer"
 git clone https://gitclone.com/github.com/wbthomason/packer.nvim "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
 
+echo "配置pip安装源"
+pip config set global.index-url https://pypi.mirrors.ustc.edu.cn/simple
+
 echo ""
 echo "安装已完成!"
 echo "=============================================================================="

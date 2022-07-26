@@ -1,9 +1,9 @@
- local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.setup({
-  -- 自动安装 Language Servers
-  automatic_installation = true,
-})
-local lspconfig = require("lspconfig")
+local lsp_installer = require("nvim-lsp-installer")
+--lsp_installer.setup({
+  ---- 自动安装 Language Servers
+  --automatic_installation = true,
+--})
+--local lspconfig = require("lspconfig")
 
 -- 安装列表
 -- { key: 服务器名， value: 配置文件 }
