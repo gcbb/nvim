@@ -19,6 +19,7 @@ $repo_url    = "git@gitee.com:gcbb/vim.git"
 $repo_name   = "gVim"
 $repo_path   = "$HOME\gVim"
 
+
 Function Pause ($Message = "请按任意按键继续 . . . ") {
   if ((Test-Path variable:psISE) -and $psISE) {
     $Shell = New-Object -ComObject "WScript.Shell"
@@ -59,9 +60,6 @@ if (Get-Command "vim" -ErrorAction SilentlyContinue) {
   echo "[WARNING] 无法在你的 PATH 中发现 'vim' 命令. 但仍可继续安装..."
   echo ""
   echo "[WARNING] 请后续安装 vim 或者正确设置你的 PATH! "
-  
-
-
 }
 
 echo "==> 测试 nvim 命令"
@@ -117,13 +115,19 @@ git clone https://gitclone.com/github.com/wbthomason/packer.nvim "$env:LOCALAPPD
 echo "配置pip安装源"
 pip config set global.index-url https://pypi.mirrors.ustc.edu.cn/simple
 
+
+echo "1:安装mingw, 选base， 以安装makefile" 
+echo "2:安装 Cmake" 
+echo "3: 复制test(示例工程)中的cmakelist、cmake模板到c工程目录" 
+echo "4: 切换到C工程build目录下运行cmake.bat生成Vim 的C文件跳转搜索文件夹即可" 
+
 echo ""
 echo "安装已完成!"
 echo "=============================================================================="
 echo "==               打开 Vim 或 Neovim，所有插件将会自动安装                   =="
 echo "=============================================================================="
 echo ""
-echo "感谢支持 SpaceVim，欢迎反馈！"
+echo "感谢Vim工作者以及SpaceVim！"
 echo ""
 
 Pause

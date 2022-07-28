@@ -102,20 +102,10 @@ call plug#begin(bundle_dir)
                     \'coc-lists',
                     \'coc-highlight',
                     \'coc-pyright',
-                    \'coc-clangd'
+                    \'coc-clangd',
+                    \'coc-markdownlint',
                     \]
 
-         "Use `[g` and `]g` to navigate diagnostics
-         "Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-        nmap <silent> [g <Plug>(coc-diagnostic-prev)
-        nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-        " GoTo code navigation.
-        nmap <silent> gd <Plug>(coc-definition)
-        nmap <silent> gy <Plug>(coc-type-definition)
-        nmap <silent> gi <Plug>(coc-implementation)
-        nmap <silent> gr <Plug>(coc-references)
-        nmap <leader>rn <Plug>(coc-rename)
         "------------ COC config-------------------"
     "Plug 'davidhalter/jedi-vim'
         "let g:jedi#environment_path = "D:/sw/miniconda3/envs/py39/"
@@ -360,6 +350,13 @@ set conceallevel=0 "json文件显示引号
 
 "EOF
 
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
 augroup key_map
     autocmd!
     "noremap <F9> :call SetBreakPoint()<CR>
@@ -379,5 +376,28 @@ augroup key_map
     "替换\\为/
     nnoremap <Leader>rs :s/\\/\//g<CR>
     noremap <F4> :call RunTest()<CR>
+
+
+     "Use `[g` and `]g` to navigate diagnostics
+     "Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+    nmap <silent> [g <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+    " GoTo code navigation.
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+    nmap <leader>rn <Plug>(coc-rename)
+    nnoremap <silent> K :call ShowDocumentation()<CR>
+
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup end
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
