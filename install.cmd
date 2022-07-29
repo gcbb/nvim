@@ -118,8 +118,12 @@ pip config set global.index-url https://pypi.mirrors.ustc.edu.cn/simple
 
 echo "1:安装mingw, 选base， 以安装makefile" 
 echo "2:安装 Cmake" 
+pause
+echo "5:安装yarn以支持COC的安装 " 
+npm install -g yarn
 echo "3: 复制test(示例工程)中的cmakelist、cmake模板到c工程目录" 
 echo "4: 切换到C工程build目录下运行cmake.bat生成Vim 的C文件跳转搜索文件夹即可" 
+
 
 echo ""
 echo "安装已完成!"
