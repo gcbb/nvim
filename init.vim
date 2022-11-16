@@ -30,7 +30,8 @@ let mapleader = ","
 let bundle_dir = 'D:/gcbb/vim/bundles/'
 "set rtp+='D:/sw/vim/vimfiles/'
 let g:python3_host_prog = 'D:/sw/miniconda3/python.exe'
-let g:python3_host_prog = 'C:/Python310/python.exe'
+let g:python3_host_prog = exepath("python")
+"'C:/Python310/python.exe'
 
 " Use K to show documentation in preview window.
 
@@ -152,11 +153,12 @@ call plug#begin(bundle_dir)
         let g:tagbar_width=30                   "窗口宽度的设置
         noremap <F3> :Tagbar<CR>
         "autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()  "如果是c语言的程序的话，tagbar自动开启
-    Plug 'scrooloose/nerdtree'
+    Plug 'preservim/nerdtree'
     Plug 'scrooloose/nerdcommenter'
     Plug 'jistr/vim-nerdtree-tabs'
       let NERDTreeIgnore=['.pyd','\.pyc$','__pycache_','.bak', '\~$'] "ignore files in NERDTree
-      map <F2> <esc>:NERDTreeToggle<cr>
+      map <F2> <esc>:NERDTreeTabsToggle<cr>
+      map <Leader>n <plug>NERDTreeTabsToggle<CR>
     "Plug 'fholgado/minibufexpl.vim'
         "let g:miniBufExplMapWindowNavVim = 1   
         "let g:miniBufExplMapWindowNavArrows = 1   
