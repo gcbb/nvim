@@ -8,7 +8,10 @@
     "coc.preferences.rootPatterns":[".git",".hg",".projections.json","cfg.vim"],
     "xml.java.home":"D:/sw/Java/jdk-18",
     "python.pythonPath": "d:/sw/miniconda3/python.exe",
-    "vetur.trace.server": "verbose"
+    "vetur.trace.server": "verbose",
+    "diagnostic.enable": "false",
+    "diagnostic.enableSign": "false",
+    "clangd.path": "~\\AppData\\Local\\coc\\extensions\\coc-clangd-data\\install\\15.0.3\\clangd_15.0.3\\bin\\clangd.exe"
     //"python.analysis.autoSearchPaths":true,
     // "python.analysis.extraPaths":[
         //    "d:/sw/anaconda3/",
