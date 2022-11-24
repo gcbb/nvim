@@ -11,7 +11,8 @@
     "vetur.trace.server": "verbose",
     "diagnostic.enable": "false",
     "diagnostic.enableSign": "false",
-    "clangd.path": "~\\AppData\\Local\\coc\\extensions\\coc-clangd-data\\install\\15.0.3\\clangd_15.0.3\\bin\\clangd.exe"
+    "clangd.path": "~\\AppData\\Local\\coc\\extensions\\coc-clangd-data\\install\\15.0.3\\clangd_15.0.3\\bin\\clangd.exe",
+    "snippets.ultisnips.pythonPrompt": false
     //"python.analysis.autoSearchPaths":true,
     // "python.analysis.extraPaths":[
         //    "d:/sw/anaconda3/",
