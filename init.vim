@@ -29,8 +29,7 @@ let mapleader = ","
 "let bundle_dir = 'd:/sw/vim/bundles/'
 let bundle_dir = 'D:/gcbb/vim/bundles/'
 "set rtp+='D:/sw/vim/vimfiles/'
-let g:python3_host_prog = 'D:/sw/miniconda3/python.exe'
-let g:python3_host_prog = 'C:/Python310/python.exe'
+let g:python3_host_prog = exepath('python.exe')
 
 " Use K to show documentation in preview window.
 
@@ -310,6 +309,9 @@ let g:mkdp_theme = 'dark'
         nnoremap <buffer> <leader>ap :ArduinoChooseProgrammer<CR>
 
     Plug 'skywind3000/vim-terminal-help'
+    Plug 'sjl/gundo.vim'
+        let g:gundo_prefer_python3=1
+        nnoremap <leader>g :GundoToggle<cr>
 call plug#end()
 
 set ts=4
@@ -397,6 +399,8 @@ fun! RunTest()
             echo(test_file_dir)
             "exec "!python " . test_file_dir. "| iconv -f cp936 -t utf-8"
             exec "!python % | iconv -f cp936 -t utf-8"
+        elseif filereadable("main_.py")
+            exec ':H python main_.py'
         else
             exec ':H python '.expand('%')
         endif
