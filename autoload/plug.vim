@@ -22,7 +22,7 @@
 "   Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 "
 "   " On-demand loading
-"   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+"   Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 "   Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 "
 "   " Using a non-default branch
@@ -776,7 +776,6 @@ function! s:infer_properties(name, repo)
         throw printf('Invalid argument: %s (implicit `vim-scripts'' expansion is deprecated)', repo)
       endif
       let fmt = get(g:, 'plug_url_format', 'https://git::@github.com/%s.git')
-	  let fmt = get(g:, 'plug_url_format', 'https://gitclone.com/github.com/%s.git')
       let uri = printf(fmt, repo)
     endif
     return { 'dir': s:dirpath(g:plug_home.'/'.a:name), 'uri': uri }

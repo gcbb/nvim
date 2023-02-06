@@ -5,7 +5,8 @@ local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
     print("down packer")
-    fn.system({'git', 'clone', '--depth', '1', 'https://gitclone.com/github.com/wbthomason/packer.nvim', install_path})	--默认地址
+    --fn.system({'git', 'clone', '--depth', '1', 'https://gitclone.com/github.com/wbthomason/packer.nvim', install_path})	--默认地址
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})	--默认地址
     vim.cmd 'packadd packer.nvim'
 end
 
@@ -14,8 +15,8 @@ require('packer').init({
     git = {
         depth = 1, -- Git clone depth
         clone_timeout = 60, -- Timeout, in seconds, for git clones
-        --default_url_format = "https://github.com/%s"
-        default_url_format = "https://gitclone.com/github.com/%s"
+        default_url_format = "https://github.com/%s"
+        --default_url_format = "https://gitclone.com/github.com/%s"
     }
 })
 return require('packer').startup(function()

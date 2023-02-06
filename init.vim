@@ -13,7 +13,7 @@ set hidden " 允许在有未保存的修改时切换缓冲区，此时的修改�
 "logging.basicconfig(
     "filename=log_file,
     "format="%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s",
-    "datefmt="%y-%m-%d:%h:%m:%s",
+    "datefmt="%y-%m-%d:%h:%m:%s":CocInstall coc-markmap,
     "level=logging.debug
     "# level=logging.warning
     "# level=logging.info,
@@ -26,18 +26,17 @@ set termguicolors
 let mapleader = ","
 "let g:ctrlp_map = '<leader>p'
 "
-"let bundle_dir = 'd:/sw/vim/bundles/'
 let bundle_dir = 'D:/gcbb/vim/bundles/'
-"set rtp+='D:/sw/vim/vimfiles/'
+set rtp+='D:/sw/vim/vimfiles/'
 let g:python3_host_prog = exepath('python.exe')
 
 " Use K to show documentation in preview window.
 
-lua <<EOF
-    require("keybindings")
-    require('plugins')
-    --require("plugin-config.telescope")
-    --require("plugin-config.dashboard")
+lua << EOF
+    -- require("keybindings")
+    -- require('plugins')
+    -- require("plugin-config.telescope")
+    -- require("plugin-config.dashboard")
     --require("plugin-config.project")
     -- require('plugin-config.nvim-treesitter')
     -- 内置LSP
@@ -47,14 +46,20 @@ lua <<EOF
     -- 格式化
     -- require("lsp.formatter")
     --require("lsp.null-ls")
+    -- require("bufferline").setup{}
 EOF
 
 call plug#begin(bundle_dir)
-     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-     Plug 'junegunn/fzf.vim'
      Plug 'airblade/vim-rooter'
         let g:rooter_patterns = ['cfg.vim', '.project','.vim']
         let g:rooter_change_directory_for_non_project_files = 'current'
+
+    "Plug 'nvim-tree/nvim-web-devicons' " Recommended (for coloured icons)
+    "" Plug 'ryanoasis/vim-devicons' Icons without colours
+    "Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
+
+
+     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
      Plug 'junegunn/fzf.vim'
         nnoremap <c-f> :FZF<CR>
         nmap <C-p> :Files<CR>
@@ -115,6 +120,7 @@ call plug#begin(bundle_dir)
                     \'coc-pyright',
                     \'coc-clangd',
                     \'coc-markdownlint',
+                    \'coc-markmap',
                     \]
 
         "------------ COC config-------------------"
@@ -143,7 +149,8 @@ call plug#begin(bundle_dir)
          " mnemonic 'di' = 'debug inspect' (pick your own, if you prefer!)
         " for normal mode - the word under the cursor
         nmap <Leader>di <Plug>VimspectorBalloonEval
-        nmap <Leader>st <Plug>VimspectorReset
+        nmap <Leader>vr <Plug>VimspectorReset
+        nmap <Leader>dr <Plug>VimspectorReset
         "packadd! vimspector
     Plug 'majutsushi/tagbar'
         map <Leader>tb :TagbarToggle<CR>      "快捷键设置
@@ -198,104 +205,104 @@ call plug#begin(bundle_dir)
     Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
             "let g:mkdp_browser='chrome'
-" set to 1, nvim will open the preview window after entering the markdown buffer
-" default: 0
-let g:mkdp_auto_start = 0
+        " set to 1, nvim will open the preview window after entering the markdown buffer
+        " default: 0
+        let g:mkdp_auto_start = 0
 
-" set to 1, the nvim will auto close current preview window when change
-" from markdown buffer to another buffer
-" default: 1
-let g:mkdp_auto_close = 1
+        " set to 1, the nvim will auto close current preview window when change
+        " from markdown buffer to another buffer
+        " default: 1
+        let g:mkdp_auto_close = 1
 
-" set to 1, the vim will refresh markdown when save the buffer or
-" leave from insert mode, default 0 is auto refresh markdown as you edit or
-" move the cursor
-" default: 0
-let g:mkdp_refresh_slow = 0
+        " set to 1, the vim will refresh markdown when save the buffer or
+        " leave from insert mode, default 0 is auto refresh markdown as you edit or
+        " move the cursor
+        " default: 0
+        let g:mkdp_refresh_slow = 0
 
-" set to 1, the MarkdownPreview command can be use for all files,
-" by default it can be use in markdown file
-" default: 0
-let g:mkdp_command_for_global = 0
+        " set to 1, the MarkdownPreview command can be use for all files,
+        " by default it can be use in markdown file
+        " default: 0
+        let g:mkdp_command_for_global = 0
 
-" set to 1, preview server available to others in your network
-" by default, the server listens on localhost (127.0.0.1)
-" default: 0
-let g:mkdp_open_to_the_world = 0
+        " set to 1, preview server available to others in your network
+        " by default, the server listens on localhost (127.0.0.1)
+        " default: 0
+        let g:mkdp_open_to_the_world = 0
 
-" use custom IP to open preview page
-" useful when you work in remote vim and preview on local browser
-" more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
-" default empty
-let g:mkdp_open_ip = ''
+        " use custom IP to open preview page
+        " useful when you work in remote vim and preview on local browser
+        " more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
+        " default empty
+        let g:mkdp_open_ip = ''
 
-" specify browser to open preview page
-" for path with space
-" valid: `/path/with\ space/xxx`
-" invalid: `/path/with\\ space/xxx`
-" default: ''
-            let g:mkdp_browser='C:/Program Files/Google/Chrome/Application/chrome.exe'
+        " specify browser to open preview page
+        " for path with space
+        " valid: `/path/with\ space/xxx`
+        " invalid: `/path/with\\ space/xxx`
+        " default: ''
+                    let g:mkdp_browser='C:/Program Files/Google/Chrome/Application/chrome.exe'
 
-" set to 1, echo preview page url in command line when open preview page
-" default is 0
-let g:mkdp_echo_preview_url = 0
+        " set to 1, echo preview page url in command line when open preview page
+        " default is 0
+        let g:mkdp_echo_preview_url = 0
 
-" a custom vim function name to open preview page
-" this function will receive url as param
-" default is empty
-let g:mkdp_browserfunc = ''
+        " a custom vim function name to open preview page
+        " this function will receive url as param
+        " default is empty
+        let g:mkdp_browserfunc = ''
 
-" options for markdown render
-" mkit: markdown-it options for render
-" katex: katex options for math
-" uml: markdown-it-plantuml options
-" maid: mermaid options
-" disable_sync_scroll: if disable sync scroll, default 0
-" sync_scroll_type: 'middle', 'top' or 'relative', default value is 'middle'
-"   middle: mean the cursor position alway show at the middle of the preview page
-"   top: mean the vim top viewport alway show at the top of the preview page
-"   relative: mean the cursor position alway show at the relative positon of the preview page
-" hide_yaml_meta: if hide yaml metadata, default is 1
-" sequence_diagrams: js-sequence-diagrams options
-" content_editable: if enable content editable for preview page, default: v:false
-" disable_filename: if disable filename header for preview page, default: 0
-let g:mkdp_preview_options = {
-    \ 'mkit': {},
-    \ 'katex': {},
-    \ 'uml': {},
-    \ 'maid': {},
-    \ 'disable_sync_scroll': 0,
-    \ 'sync_scroll_type': 'middle',
-    \ 'hide_yaml_meta': 1,
-    \ 'sequence_diagrams': {},
-    \ 'flowchart_diagrams': {},
-    \ 'content_editable': v:false,
-    \ 'disable_filename': 0,
-    \ 'toc': {}
-    \ }
+        " options for markdown render
+        " mkit: markdown-it options for render
+        " katex: katex options for math
+        " uml: markdown-it-plantuml options
+        " maid: mermaid options
+        " disable_sync_scroll: if disable sync scroll, default 0
+        " sync_scroll_type: 'middle', 'top' or 'relative', default value is 'middle'
+        "   middle: mean the cursor position alway show at the middle of the preview page
+        "   top: mean the vim top viewport alway show at the top of the preview page
+        "   relative: mean the cursor position alway show at the relative positon of the preview page
+        " hide_yaml_meta: if hide yaml metadata, default is 1
+        " sequence_diagrams: js-sequence-diagrams options
+        " content_editable: if enable content editable for preview page, default: v:false
+        " disable_filename: if disable filename header for preview page, default: 0
+        let g:mkdp_preview_options = {
+            \ 'mkit': {},
+            \ 'katex': {},
+            \ 'uml': {},
+            \ 'maid': {},
+            \ 'disable_sync_scroll': 0,
+            \ 'sync_scroll_type': 'middle',
+            \ 'hide_yaml_meta': 1,
+            \ 'sequence_diagrams': {},
+            \ 'flowchart_diagrams': {},
+            \ 'content_editable': v:false,
+            \ 'disable_filename': 0,
+            \ 'toc': {}
+            \ }
 
-" use a custom markdown style must be absolute path
-" like '/Users/username/markdown.css' or expand('~/markdown.css')
-let g:mkdp_markdown_css = ''
+        " use a custom markdown style must be absolute path
+        " like '/Users/username/markdown.css' or expand('~/markdown.css')
+        let g:mkdp_markdown_css = ''
 
-" use a custom highlight style must absolute path
-" like '/Users/username/highlight.css' or expand('~/highlight.css')
-let g:mkdp_highlight_css = ''
+        " use a custom highlight style must absolute path
+        " like '/Users/username/highlight.css' or expand('~/highlight.css')
+        let g:mkdp_highlight_css = ''
 
-" use a custom port to start server or empty for random
-let g:mkdp_port = ''
+        " use a custom port to start server or empty for random
+        let g:mkdp_port = ''
 
-" preview page title
-" ${name} will be replace with the file name
-let g:mkdp_page_title = '「${name}」'
+        " preview page title
+        " ${name} will be replace with the file name
+        let g:mkdp_page_title = '「${name}」'
 
-" recognized filetypes
-" these filetypes will have MarkdownPreview... commands
-let g:mkdp_filetypes = ['markdown']
+        " recognized filetypes
+        " these filetypes will have MarkdownPreview... commands
+        let g:mkdp_filetypes = ['markdown']
 
-" set default theme (dark or light)
-" By default the theme is define according to the preferences of the system
-let g:mkdp_theme = 'dark'
+        " set default theme (dark or light)
+        " By default the theme is define according to the preferences of the system
+        let g:mkdp_theme = 'wite'
     Plug 'plasticboy/vim-markdown'
     Plug 'nvie/vim-flake8'
         "let g:flake8_quickfix_height=7
@@ -311,7 +318,6 @@ let g:mkdp_theme = 'dark'
     Plug 'skywind3000/vim-terminal-help'
     Plug 'sjl/gundo.vim'
         let g:gundo_prefer_python3=1
-        nnoremap <leader>g :GundoToggle<cr>
 call plug#end()
 
 set ts=4
@@ -345,11 +351,11 @@ endfunc
 fun! InserDebugMsg(mode)
     "输出光标下的单词
     if (a:mode != "json")
-        :execute "normal! viwyologging.debug('"
+        :execute "normal! viwyoLogger.debug('"
         :execute "normal! pa='+str("
         :execute "normal! pa))"
     else
-        :execute "normal! viwyologging.debug('"
+        :execute "normal! viwyoLogger.debug('"
         :execute "normal! pa='+json.dumps("
         :execute "normal! pa,indent = 4))"
     endif
@@ -391,43 +397,38 @@ vim_prj.save_bps()
 EOF
 endfunc
 
-fun! RunTest()
+fun! RunFile(mode)
     exec "w"
     if &filetype == 'python'
         let test_file_dir = join(['Test_', expand('%')],'')
-        if filereadable(test_file_dir)
+        "if filereadable(test_file_dir)
+        if (a:mode == "test")
             echo(test_file_dir)
-            "exec "!python " . test_file_dir. "| iconv -f cp936 -t utf-8"
-            exec "!python % | iconv -f cp936 -t utf-8"
-        elseif filereadable("main_.py")
-            exec ':H python main_.py'
+            exec ':H python '.test_file_dir
+        elseif(a:mode=="main")
+            if filereadable("main_.py")
+                exec ':H python main_.py'
+            endif
         else
             exec ':H python '.expand('%')
         endif
-    endif
 
-    if &filetype == 'dosbatch'
+    elseif  &filetype == 'dosbatch'
         exec ':H '.expand('%')
-    endif
-endfunc "<<RunTest
-fun! Run()
-    exec "w"
-    if &filetype == 'python'
-        "let dir= getcwd()
-        "let tmp = split(dir,'Test_')
-        "echo(tmp)
-        "exec "!python  %"
-        exec ':H python '.expand('%')
+    elseif &filetype == 'markdown'
+        "nmap <F11> <Plug>MarkdownPreview
+        "nmap <M-s> <Plug>MarkdownPreviewStop
+        exec ':MarkdownPreviewToggle'
     endif
 endfunc
 
 fun! RunDbug()
     exec "w"
     if &filetype == 'python'
-        
         exec ':H python -m ipdb '.expand('%')
     endif
 endfunc
+
 noremap <F8> :call Pep8()<CR>
 fun! Pep8()
     exec "w"
@@ -477,27 +478,29 @@ function! ShowDocumentation()
     call CocActionAsync('doHover')
   else
     call feedkeys('K', 'in')
-  endif
+endif
 endfunction
+
+
 augroup key_map
     autocmd!
-    "noremap <F9> :call SetBreakPoint()<CR>
+    "按照文件类型执行不同的命令
+    noremap <leader>rf :call RunFile("file")<CR> "运行文件 
+    noremap <F4> :call RunFile("file")<CR> "运行main_文件 
+    noremap <leader>rt :call RunFile("test")<CR> "运行测试文件 
+    noremap <leader>rm :call RunFile("main")<CR> "运行main_文件 
     noremap <leader>dbg :call SetBreakPoint()<CR>
-    "noremap <F9> :call SetBreakPointPdbrc()<CR>
-    "nnoremap <leader>dbg :call SetBreakPointPdbrc()<CR>
     "编辑和配置vimrc文件
     nnoremap <leader>ev :vsp $MYVIMRC<CR>
-    nnoremap <leader>rv :source $MYVIMRC<CR>
+    nnoremap <leader>rv :source $MYVIMRC<CR>:source $MYVIMRC<CR>
     nnoremap <Leader>pd :call InserDebugMsg("normal")<CR>
     nnoremap <Leader>pj :call InserDebugMsg("json")<CR>
-    "noremap <F5> :call Run()<CR>
     "noremap <F6> :call RunDbug()<CR>
     "nmap <F5> <Plug>VimspectorContinue
     nnoremap <Leader>l :call InsertLineNumber()<CR>
     nnoremap <Leader>it "=strftime("%F %X")<CR>gP
     "替换\\为/
     nnoremap <Leader>rs :s/\\/\//g<CR>
-    noremap <F4> :call RunTest()<CR>
 
 
      "Use `[g` and `]g` to navigate diagnostics
@@ -526,7 +529,14 @@ augroup key_map
     let g:coc_snippet_prev = '<c-k>'
     imap <C-j> <Plug>(coc-snippets-expand-jump)
     xmap <leader>x  <Plug>(coc-convert-snippet)
+    " ----------COC snippets end---------------
+    nnoremap <leader>u :GundoToggle<cr> "undotree key
+
+    nnoremap ,duuid :%s/ UUID=\S*>/>/g<cr>
+" -------------markdown- 在RunFile 调用--------------------
+
 augroup end
+
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
