@@ -161,8 +161,8 @@ call plug#begin(bundle_dir)
         "autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()  "如果是c语言的程序的话，tagbar自动开启
     " 启用 NERDTree 插件
     Plug 'preservim/nerdtree'
-    Plug 'preservim/nerdtree' |
-            \ Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'preservim/nerdtree' 
+    Plug 'Xuyuanp/nerdtree-git-plugin'
         " 启用 NERDTree 显示 Git 状态的功能
         let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ 'Modified'  :'✹',
@@ -179,17 +179,33 @@ call plug#begin(bundle_dir)
         let g:NERDTreeShowBookmarks = 1
         let g:NERDTreeShowHidden = 1
         let g:NERDTreeGitStatusUseNerdFonts = 1
-    "Plug 'scrooloose/nerdcommenter'
+    Plug 'scrooloose/nerdcommenter'
+        " Create default mappings
+        let g:NERDCreateDefaultMappings = 1
+        " Add spaces after comment delimiters by default
+        let g:NERDSpaceDelims = 1
+        " Use compact syntax for prettified multi-line comments
+        let g:NERDCompactSexyComs = 1
+        " Align line-wise comment delimiters flush left instead of following code indentation
+        let g:NERDDefaultAlign = 'left'
+        " Set a language to use its alternate delimiters by default
+        let g:NERDAltDelims_java = 1
+        " Add your own custom formats or override the defaults
+        let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+        " Allow commenting and inverting empty lines (useful when commenting a region)
+        let g:NERDCommentEmptyLines = 1
+        " Enable trimming of trailing whitespace when uncommenting
+        let g:NERDTrimTrailingWhitespace = 1
+        " Enable NERDCommenterToggle to check all selected lines is commented or not 
+        let g:NERDToggleCheckAllLines = 1
     "Plug 'jistr/vim-nerdtree-tabs'
       let NERDTreeIgnore=['.pyd','\.pyc$','__pycache_','.bak', '\~$'] "ignore files in NERDTree
-    Plug 'Xuyuanp/nerdtree-git-plugin'
+        nnoremap <leader>n :NERDTreeFocus<CR>
+        nnoremap <C-n> :NERDTree<CR>
+        nnoremap <C-f> :NERDTreeFind<CR>
+        nnoremap <F2> :NERDTreeToggle<cr>
     Plug 'PhilRunninger/nerdtree-buffer-ops'
-    Plug 'scrooloose/nerdtree-project-plugin'
-    nnoremap <leader>n :NERDTreeFocus<CR>
-    nnoremap <C-n> :NERDTree<CR>
-    nnoremap <C-f> :NERDTreeFind<CR>
-    nnoremap <F2> :NERDTreeToggle<cr>
-
+    Plug 'tpope/vim-surround'
     "Plug 'fholgado/minibufexpl.vim'
         "let g:miniBufExplMapWindowNavVim = 1   
         "let g:miniBufExplMapWindowNavArrows = 1   
