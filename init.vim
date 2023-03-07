@@ -121,6 +121,7 @@ call plug#begin(bundle_dir)
                     \'coc-clangd',
                     \'coc-markdownlint',
                     \'coc-markmap',
+                    \'coc-git',
                     \]
 
         "------------ COC config-------------------"
@@ -158,11 +159,37 @@ call plug#begin(bundle_dir)
         let g:tagbar_width=30                   "窗口宽度的设置
         noremap <F3> :Tagbar<CR>
         "autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()  "如果是c语言的程序的话，tagbar自动开启
-    Plug 'scrooloose/nerdtree'
-    Plug 'scrooloose/nerdcommenter'
-    Plug 'jistr/vim-nerdtree-tabs'
+    " 启用 NERDTree 插件
+    Plug 'preservim/nerdtree'
+    Plug 'preservim/nerdtree' |
+            \ Plug 'Xuyuanp/nerdtree-git-plugin'
+        " 启用 NERDTree 显示 Git 状态的功能
+        let g:NERDTreeGitStatusIndicatorMapCustom = {
+                \ 'Modified'  :'✹',
+                \ 'Staged'    :'✚',
+                \ 'Untracked' :'✭',
+                \ 'Renamed'   :'➜',
+                \ 'Unmerged'  :'═',
+                \ 'Deleted'   :'✖',
+                \ 'Dirty'     :'✗',
+                \ 'Ignored'   :'☒',
+                \ 'Clean'     :'✔︎',
+                \ 'Unknown'   :'?',
+                \ }
+        let g:NERDTreeShowBookmarks = 1
+        let g:NERDTreeShowHidden = 1
+        let g:NERDTreeGitStatusUseNerdFonts = 1
+    "Plug 'scrooloose/nerdcommenter'
+    "Plug 'jistr/vim-nerdtree-tabs'
       let NERDTreeIgnore=['.pyd','\.pyc$','__pycache_','.bak', '\~$'] "ignore files in NERDTree
-      map <F2> <esc>:NERDTreeToggle<cr>
+    Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'PhilRunninger/nerdtree-buffer-ops'
+    Plug 'scrooloose/nerdtree-project-plugin'
+    nnoremap <leader>n :NERDTreeFocus<CR>
+    nnoremap <C-n> :NERDTree<CR>
+    nnoremap <C-f> :NERDTreeFind<CR>
+    nnoremap <F2> :NERDTreeToggle<cr>
+
     "Plug 'fholgado/minibufexpl.vim'
         "let g:miniBufExplMapWindowNavVim = 1   
         "let g:miniBufExplMapWindowNavArrows = 1   
@@ -373,11 +400,7 @@ fun! InserDebugJsonMsg()
     :execute "normal! pa,indent = 4))"
 endfunc
 fun! SetBreakPoint()
-    " TODO 打开PDBRC 
-        " 且H 命令运行b 断点行
-        " 然后查找 查找相关断点,如果没有，就插入断点
-    :execute "normal Iimport ipdb as pdb;pdb.set_trace()\n"
-    echo "F9插入断点， 列出断点命令还未想好"
+    :execute "normal Iimport ipdb as pdb;pdb.set_trace()"
 endfunc "<<SetBreakPoint
 
 fun! SetBreakPointPdbrc()
@@ -400,9 +423,13 @@ endfunc
 fun! RunFile(mode)
     exec "w"
     if &filetype == 'python'
-        let test_file_dir = join(['Test_', expand('%')],'')
-        "if filereadable(test_file_dir)
+
         if (a:mode == "test")
+            let test_file_dir = join(['Test_', expand('%')],'')
+            if ! filereadable(test_file_dir)
+                let test_file_dir = join(['test/test_', expand('%')],'')
+            endif
+
             echo(test_file_dir)
             exec ':H python '.test_file_dir
         elseif(a:mode=="main")
@@ -484,6 +511,13 @@ endfunction
 
 augroup key_map
     autocmd!
+    " 通用命令
+    " 改变窗口大小
+    nnoremap <C-Up> :resize -1<CR>
+    nnoremap <C-Down> :resize +1<CR>
+    nnoremap <C-Left> :vertical resize -1<CR>
+    nnoremap <C-Right> :vertical resize +1<CR>
+
     "按照文件类型执行不同的命令
     noremap <leader>rf :call RunFile("file")<CR> "运行文件 
     noremap <F4> :call RunFile("file")<CR> "运行main_文件 
