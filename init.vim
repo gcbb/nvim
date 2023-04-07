@@ -28,6 +28,8 @@ let mapleader = ","
 "
 let bundle_dir = 'D:/gcbb/vim/bundles/'
 set rtp+='D:/sw/vim/vimfiles/'
+let g:my_vimrc_dir = fnamemodify((expand('$MYVIMRC')), ':p:h')
+" let g:my_vimrc_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 let g:python3_host_prog = exepath('python.exe')
 
 " Use K to show documentation in preview window.
@@ -66,28 +68,6 @@ call plug#begin(bundle_dir)
         nmap <C-e> :Buffers<CR>
         let g:fzf_action = { 'ctrl-e': 'edit' }
 
-    "plug 'ctrlpvim/ctrlp.vim'
-    "
-        "let g:ctrlp_map = '<c-p>'
-        "let g:ctrlp_cmd = 'ctrlp'
-        "" 根据通配符来忽略不需要搜索的文件
-        "set wildignore+=*\tmp\*,*/tmp/*,*.so,*.swp,*.zip,*.pyc
-        "let g:ctrlp_root_markers = ['.svn', '.git', 'cfg.vim']
-        "" 本地工作目录的规则，可设置以下选项
-        "" 'c' - 设为当前文件所在的目录
-        "" 'r' - 如果最近的祖先有包含以下目录，则将该祖先目录设为工作目录：.git .hg .svn .bzr _darcs, 
-        "" 'a' - 和c选项类似，理解为仅在r不生效的情况下，才执行c选项
-        "let g:ctrlp_working_path_mode = 'ra'
-        "" 哪些文件、目录、链接不在搜索范围内
-        "let g:ctrlp_custom_ignore = {
-                 "\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-                 "\ 'file': '\v\.(exe|so|dll|zip|gzip)$',
-                 "\ 'link': 'data',
-                 "\ }
-    "Plug 'tacahiroy/ctrlp-funky'
-        "nnoremap <Leader>fu :CtrlPFunky<Cr>
-        "" narrow the list down with a word under cursor
-        "nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
     Plug 'mileszs/ack.vim'
         if executable('rg')
           let g:ackprg = 'rg --vimgrep'
@@ -121,7 +101,6 @@ call plug#begin(bundle_dir)
                     \'coc-clangd',
                     \'coc-markdownlint',
                     \'coc-markmap',
-                    \'coc-git',
                     \]
 
         "------------ COC config-------------------"
@@ -149,9 +128,45 @@ call plug#begin(bundle_dir)
         let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
          " mnemonic 'di' = 'debug inspect' (pick your own, if you prefer!)
         " for normal mode - the word under the cursor
-        nmap <Leader>di <Plug>VimspectorBalloonEval
-        nmap <Leader>vr <Plug>VimspectorReset
-        nmap <Leader>dr <Plug>VimspectorReset
+        nnoremap <Leader>di <Plug>VimspectorBalloonEval
+        nnoremap <Leader>vr <Plug>VimspectorReset
+        nnoremap <Leader>dr <Plug>VimspectorReset
+        let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools',  'vscode-node-debug2', 'vscode-chrome-debug', 'vscode-lldb',  ]
+        let g:vimspector_session_initializations = {
+          \ 'Python': {
+          \   'setup': {
+          \     'python': 'python3'
+          \   }
+          \ }
+          \}
+        " let g:vimspector_config = g:my_vimrc_dir."\\vimspector_config.json"
+        "
+      let g:vimspector_adapters = #{
+            \   test_debugpy: #{ extends: 'debugpy' }
+            \ }
+      
+      let g:vimspector_configurations = {
+            \ "test_debugpy_config": {
+            \   "adapter": "test_debugpy",
+            \   "filetypes": [ "python" ],
+            \   "configuration": {
+            \     "request": "launch",
+            \     "type": "python",
+            \     "cwd": "${fileDirname}",
+            \     "args": [],
+            \     "program": "${file}",
+            \     "stopOnEntry": v:false,
+            \     "console": "integratedTerminal",
+            \     "integer": 123,
+            \   },
+            \   "breakpoints": {
+            \     "exception": {
+            \       "raised": "N",
+            \       "uncaught": "",
+            \       "userUnhandled": ""
+            \     }
+            \   }
+            \ } }
         "packadd! vimspector
     Plug 'majutsushi/tagbar'
         map <Leader>tb :TagbarToggle<CR>      "快捷键设置
@@ -161,7 +176,6 @@ call plug#begin(bundle_dir)
         "autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()  "如果是c语言的程序的话，tagbar自动开启
     " 启用 NERDTree 插件
     Plug 'preservim/nerdtree'
-    Plug 'preservim/nerdtree' 
     Plug 'Xuyuanp/nerdtree-git-plugin'
         " 启用 NERDTree 显示 Git 状态的功能
         let g:NERDTreeGitStatusIndicatorMapCustom = {
@@ -179,6 +193,7 @@ call plug#begin(bundle_dir)
         let g:NERDTreeShowBookmarks = 1
         let g:NERDTreeShowHidden = 1
         let g:NERDTreeGitStatusUseNerdFonts = 1
+
     Plug 'scrooloose/nerdcommenter'
         " Create default mappings
         let g:NERDCreateDefaultMappings = 1
@@ -202,10 +217,21 @@ call plug#begin(bundle_dir)
       let NERDTreeIgnore=['.pyd','\.pyc$','__pycache_','.bak', '\~$'] "ignore files in NERDTree
         nnoremap <leader>n :NERDTreeFocus<CR>
         nnoremap <C-n> :NERDTree<CR>
-        nnoremap <C-f> :NERDTreeFind<CR>
+        " nnoremap <C-f> :NERDTreeFind<CR>
         nnoremap <F2> :NERDTreeToggle<cr>
     Plug 'PhilRunninger/nerdtree-buffer-ops'
     Plug 'tpope/vim-surround'
+
+        " 添加包围符号：
+        " cs{from}{to}：cs"'表示将当前光标处的引号替换为双引号。
+        " ys{motion}{to}：例如，ysiw)表示在当前单词上添加括号。
+        " yss{to}：yss[表示在当前行上添加方括号。
+        " 删除包围符号：
+        " ds{from}：ds"表示删除当前光标处的引号。
+        " ysiw{to}：将当前单词添加包围符号to，然后删除当前光标处的包围符号。
+        " yss{to}：在当前行上添加包围符号to，然后删除当前光标处的包围符号。
+        " 修改包围符号：
+        " cs{from}{to}：效果相当于删除再添加。
     "Plug 'fholgado/minibufexpl.vim'
         "let g:miniBufExplMapWindowNavVim = 1   
         "let g:miniBufExplMapWindowNavArrows = 1   
@@ -359,6 +385,7 @@ call plug#begin(bundle_dir)
         nnoremap <buffer> <leader>ap :ArduinoChooseProgrammer<CR>
 
     Plug 'skywind3000/vim-terminal-help'
+        let g:terminal_shell = 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
     Plug 'sjl/gundo.vim'
         let g:gundo_prefer_python3=1
 call plug#end()
@@ -457,7 +484,7 @@ fun! RunFile(mode)
         endif
 
     elseif  &filetype == 'dosbatch'
-        exec ':H '.expand('%')
+        exec ':H ./'.expand('%')
     elseif &filetype == 'markdown'
         "nmap <F11> <Plug>MarkdownPreview
         "nmap <M-s> <Plug>MarkdownPreviewStop
@@ -573,12 +600,22 @@ augroup key_map
 
     " ----------COC snippets---------------
     " Use <C-l> for trigger snippet expand.
-    imap <C-l> <Plug>(coc-snippets-expand)
-    vmap <C-j> <Plug>(coc-snippets-select)
+    xmap <leader>x  <Plug>(coc-convert-snippet)
+    inoremap <silent><expr> <TAB>
+    \ coc#pum#visible() ? coc#_select_confirm() :
+    \ coc#expandableOrJumpable() ?
+    \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+    \ CheckBackspace() ? "\<TAB>" :
+    \ coc#refresh()
+
+  function! CheckBackspace() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
+  let g:coc_snippet_next = '<tab>'
     let g:coc_snippet_next = '<c-j>'
     let g:coc_snippet_prev = '<c-k>'
-    imap <C-j> <Plug>(coc-snippets-expand-jump)
-    xmap <leader>x  <Plug>(coc-convert-snippet)
+
     " ----------COC snippets end---------------
     nnoremap <leader>u :GundoToggle<cr> "undotree key
 
@@ -591,6 +628,8 @@ augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd BufRead,BufNewFile *.can set filetype=c
+  autocmd BufRead,BufNewFile *.arxml set filetype=xml
 " indentLine 
 autocmd FileType json,markdown let g:indentLine_conceallevel = 0
 " vim-json
