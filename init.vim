@@ -222,7 +222,7 @@ call plug#begin(bundle_dir)
     Plug 'PhilRunninger/nerdtree-buffer-ops'
     Plug 'tpope/vim-surround'
 
-        " 添加包围符号：
+        " 添加包围符号：ysiw"
         " cs{from}{to}：cs"'表示将当前光标处的引号替换为双引号。
         " ys{motion}{to}：例如，ysiw)表示在当前单词上添加括号。
         " yss{to}：yss[表示在当前行上添加方括号。
@@ -405,12 +405,6 @@ set invlist "display tab and space
 set listchars=tab:>-,trail:.,space:.
 set clipboard=unnamed
 ":bufdo e
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-noremap <C-S> <esc>:w<cr>
-inoremap jk <esc>
 "let javascript_enable_domhtmlcss=1
 "插入断点
 fun! InsertLineNumber()
@@ -554,12 +548,19 @@ endfunction
 
 augroup key_map
     autocmd!
+
+    nnoremap <C-J> <C-W><C-J>
+    nnoremap <C-K> <C-W><C-K>
+    nnoremap <C-L> <C-W><C-L>
+    nnoremap <C-H> <C-W><C-H>
+    noremap <C-S> <esc>:w<cr>
+    inoremap jk <esc>
     " 通用命令
     " 改变窗口大小
-    nnoremap <C-Up> :resize -1<CR>
-    nnoremap <C-Down> :resize +1<CR>
-    nnoremap <C-Left> :vertical resize -1<CR>
-    nnoremap <C-Right> :vertical resize +1<CR>
+    nnoremap <C-Up> :resize -5<CR>
+    nnoremap <C-Down> :resize +5<CR>
+    nnoremap <C-Left> :vertical resize -5<CR>
+    nnoremap <C-Right> :vertical resize +5<CR>
 
     "按照文件类型执行不同的命令
     noremap <leader>rf :call RunFile("file")<CR> "运行文件 
