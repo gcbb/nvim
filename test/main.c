@@ -1,3 +1,4 @@
+#include <head/s.h>
 int main()
 {
     int i=0;

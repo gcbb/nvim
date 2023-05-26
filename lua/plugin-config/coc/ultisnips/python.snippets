@@ -1,0 +1,48 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+
+snippet fordir "scan for dir" b
+for root,dirs,files in os.walk(data_dir,topdown=True):
+	print('dirs={}'.format(dirs))
+	print('root={}'.format(root))
+	print('files={}'.format(files))
+
+endsnippet
+snippet loggingconfig "inert logging config info " b
+log_file = None
+logging.basicConfig(
+    filename=log_file,
+    format="%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s",
+    datefmt="%Y-%m-%d:%H:%M:%S",
+    # level=logging.DEBUG
+    level=logging.INFO,
+    # level=logging.WARNING
+)
+endsnippet
+
+snippet insertline  "insert code info" b
+info = str('代码第{}行, 函数名称 {}'.format(sys._getframe().f_lineno, sys._getframe().f_code.co_name))
+endsnippet

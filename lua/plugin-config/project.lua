@@ -15,6 +15,8 @@ project.setup({
   detection_methods = { "pattern" },
   patterns = {
     "README.md",
+    "readme.md",
+    "Readme.md",
     "Cargo.toml",
     "package.json",
     ".sln",
@@ -24,6 +26,9 @@ project.setup({
     ".bzr",
     ".svn",
     "Makefile",
+    'cfg.vim',
+    '.project',
+    '.vim'
   },
 })
 

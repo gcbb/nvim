@@ -36,13 +36,21 @@ packer.startup({
     -- Packer 可以升级自己
     use("wbthomason/packer.nvim")
     -------------------------- plugins -------------------------------------------
-    -- color 
-    use 'altercation/vim-colors-solarized'
     --commenter
-    use('scrooloose/nerdcommenter')
-    use 'keaising/im-select.nvim'
+    -- use('scrooloose/nerdcommenter')
+    -- use 'keaising/im-select.nvim'
 
-    use('neoclide/coc.nvim')
+    use {'neoclide/coc.nvim', branch = 'master', run = 'yarn install --frozen-lockfile'}
+
+    -- use{ 'sjl/gundo.vim', setup = function() vim.g.gundo_auto_preview = 1 end }
+    use {'mbbill/undotree'}
+    -- use {'sindrets/undoquit.vim'}
+
+    -- markdown
+    -- install without yarn or npm
+    use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+
+        -- let g:gundo_prefer_python3=1
 -- tree
     use({
       "kyazdani42/nvim-tree.lua",
@@ -59,59 +67,60 @@ packer.startup({
       requires = { "kyazdani42/nvim-web-devicons" },
     })
     use("arkav/lualine-lsp-progress")
-    -- telescope
+    -- -- telescope
     use({
       "nvim-telescope/telescope.nvim",
       requires = { "nvim-lua/plenary.nvim" },
     })
-    -- telescope extensions
-    use("LinArcX/telescope-env.nvim")
+    -- -- telescope extensions
+    -- use("LinArcX/telescope-env.nvim")
     use("nvim-telescope/telescope-ui-select.nvim")
-    -- dashboard-nvim
-    use("glepnir/dashboard-nvim")
+    -- -- dashboard-nvim
+    -- use("glepnir/dashboard-nvim")
     -- project
     use("ahmedkhalf/project.nvim")
-    -- treesitter
-    use({
-      "nvim-treesitter/nvim-treesitter",
-      run = ":TSUpdate",
-    })
-    use("p00f/nvim-ts-rainbow")
-    -- indent-blankline
-    use("lukas-reineke/indent-blankline.nvim")
-    --------------------- LSP --------------------
-    -- use({ "williamboman/nvim-lsp-installer", commit = "36b44679f7cc73968dbb3b09246798a19f7c14e0" })
+    -- -- treesitter
+    -- use({
+    --   "nvim-treesitter/nvim-treesitter",
+    --   run = ":TSUpdate",
+    -- })
+    -- use("p00f/nvim-ts-rainbow")
+    -- -- indent-blankline
+    -- use("lukas-reineke/indent-blankline.nvim")
+    -- --------------------- LSP --------------------
+    -- -- use({ "williamboman/nvim-lsp-installer", commit = "36b44679f7cc73968dbb3b09246798a19f7c14e0" })
     use({ "williamboman/nvim-lsp-installer" })
     -- Lspconfig
     use({ "neovim/nvim-lspconfig" })
-    -- 补全引擎
+    -- -- 补全引擎
     use("hrsh7th/nvim-cmp")
-    -- Snippet 引擎
-    use("hrsh7th/vim-vsnip")
-    -- 补全源
-    use("hrsh7th/cmp-vsnip")
+    -- -- Snippet 引擎
+    -- use("hrsh7th/vim-vsnip")
+    -- -- 补全源
+    -- use("hrsh7th/cmp-vsnip")
     use("hrsh7th/cmp-nvim-lsp") -- { name = nvim_lsp }
-    use("hrsh7th/cmp-buffer") -- { name = 'buffer' },
-    use("hrsh7th/cmp-path") -- { name = 'path' }
-    use("hrsh7th/cmp-cmdline") -- { name = 'cmdline' }
-    use("hrsh7th/cmp-nvim-lsp-signature-help") -- { name = 'nvim_lsp_signature_help' }
-    -- 常见编程语言代码段
+    -- use("hrsh7th/cmp-buffer") -- { name = 'buffer' },
+    -- use("hrsh7th/cmp-path") -- { name = 'path' }
+    -- use("hrsh7th/cmp-cmdline") -- { name = 'cmdline' }
+    -- use("hrsh7th/cmp-nvim-lsp-signature-help") -- { name = 'nvim_lsp_signature_help' }
+    -- -- 常见编程语言代码段
     use("rafamadriz/friendly-snippets")
-    -- UI 增强
+    -- -- UI 增强
     use("onsails/lspkind-nvim")
     use("tami5/lspsaga.nvim")
-    -- 代码格式化
-    use("mhartington/formatter.nvim")
-    use({ "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" })
-    -- TypeScript 增强
-    use({ "jose-elias-alvarez/nvim-lsp-ts-utils", requires = "nvim-lua/plenary.nvim" })
-    -- Lua 增强
-    use("folke/lua-dev.nvim")
-    -- JSON 增强
+    -- -- 代码格式化
+    -- use("mhartington/formatter.nvim")
+    -- use({ "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" })
+    -- -- TypeScript 增强
+    -- use({ "jose-elias-alvarez/nvim-lsp-ts-utils", requires = "nvim-lua/plenary.nvim" })
+    -- -- Lua 增强
+    -- use("folke/lua-dev.nvim")
+    -- JSON 增强schemastore
     use("b0o/schemastore.nvim")
-    -- Rust 增强
-    use("simrat39/rust-tools.nvim")
-    --------------------- colorschemes --------------------
+    -- yml 
+    -- -- Rust 增强
+    -- use("simrat39/rust-tools.nvim")
+    -- --------------------- colorschemes --------------------
     -- tokyonight
     use("folke/tokyonight.nvim")
     -- OceanicNext
@@ -121,8 +130,12 @@ packer.startup({
       "ellisonleao/gruvbox.nvim",
       requires = { "rktjmp/lush.nvim" },
     })
+
+    -- color 
+    use 'altercation/vim-colors-solarized'
+    use 'overcache/NeoSolarized'
     -- zephyr
-    -- use("glepnir/zephyr-nvim")
+    use("glepnir/zephyr-nvim")
     -- nord
     use("shaunsingh/nord.nvim")
     -- onedark
@@ -130,25 +143,25 @@ packer.startup({
     -- nightfox
     use("EdenEast/nightfox.nvim")
 
-    -------------------------------------------------------
+    -- -------------------------------------------------------
     use({ "akinsho/toggleterm.nvim" })
-    -- surround
-    use("ur4ltz/surround.nvim")
-    -- Comment
-    use("numToStr/Comment.nvim")
-    -- nvim-autopairs
-    use("windwp/nvim-autopairs")
+    -- -- surround
+    -- use("ur4ltz/surround.nvim")
+    -- -- Comment
+    -- use("numToStr/Comment.nvim")
+    -- -- nvim-autopairs
+    -- use("windwp/nvim-autopairs")
     -- git
     use({ "lewis6991/gitsigns.nvim" })
     -- vimspector
     use("puremourning/vimspector")
-    ----------------------------------------------
+    -- ----------------------------------------------
     use("mfussenegger/nvim-dap")
     use("theHamsta/nvim-dap-virtual-text")
     use("rcarriga/nvim-dap-ui")
     -- use("Pocco81/DAPInstall.nvim")
     -- use("jbyuki/one-small-step-for-vimkind")
-
+    --
     use("j-hui/fidget.nvim")
     if paccker_bootstrap then
       packer.sync()
