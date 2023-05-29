@@ -20,17 +20,17 @@ let g:python3_host_prog = exepath('python.exe')
 lua << EOF
 --    require("insis").setup({})
     require("utils.global")
-   require("keybindings")
-   require('plugins')
-   require('plugin-config.coc')
-   require("plugin-config.telescope")
-   -- require("plugin-config.dashboard")
-   require("plugin-config.project")
-   require("plugin-config.toggleterm")
- -- require("plugin-config.nvim-tree")
-   require("plugin-config.lualine")
- -- require('plugin-config.nvim-treesitter')
- require("plugin-config.fidget")
+    require("keybindings")
+    require('plugins')
+    require('plugin-config.coc')
+    require("plugin-config.telescope")
+    -- require("plugin-config.dashboard")
+    require("plugin-config.project")
+    require("plugin-config.toggleterm")
+    -- require("plugin-config.nvim-tree")
+    require("plugin-config.lualine")
+    -- require('plugin-config.nvim-treesitter')
+    require("plugin-config.fidget")
     -- 内置LSP
 
 --      require("lsp")
@@ -175,6 +175,7 @@ call plug#begin(bundle_dir)
         let g:solarized_termcolors=256
     " Plug 'bling/vim-airline'
         " set laststatus=2
+        
     Plug 'Yggdroot/indentLine'
         let g:indentLine_char_list = ['1', '2', '3', '4','5','6','7']
 

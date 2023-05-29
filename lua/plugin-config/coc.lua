@@ -22,7 +22,8 @@ vim.cmd([[
         \"coc-pyright",
         \"coc-clangd",
         \"coc-markdownlint",
-        \"coc-markmap"
+        \"coc-markmap",
+        \"coc-yaml"
     \]
 ]])
 
