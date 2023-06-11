@@ -61,7 +61,7 @@ map("n", "<Leader>it", "=strftime('%F %X')<CR>gP",opt)
 --undotree
 map("n", "<Leader>u", ":UndotreeToggle<CR>:UndotreeFocus<CR>",opt)
     -- "替换\\为/
-map("n", "<Leader>rs", [[:s/\\/\\\//g<CR>]],opt)
+map("n", "<Leader>rs", [[:s/\\/\\//g<CR>]],opt)
 -- $跳到行尾不带空格 (交换$ 和 g_)
 map("v", "$", "g_", opt)
 map("v", "g_", "$", opt)

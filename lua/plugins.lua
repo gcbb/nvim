@@ -11,7 +11,8 @@ if fn.empty(fn.glob(install_path)) > 0 then
     "clone",
     "--depth",
     "1",
-    "https://github.com/wbthomason/packer.nvim",
+   -- "https://github.com/wbthomason/packer.nvim",
+    "https://kgithub.com/wbthomason/packer.nvim",
     -- "https://gitcode.net/mirrors/wbthomason/packer.nvim",
     install_path,
   })
@@ -41,7 +42,18 @@ packer.startup({
     -- use 'keaising/im-select.nvim'
 
     use {'neoclide/coc.nvim', branch = 'master', run = 'yarn install --frozen-lockfile'}
-
+    -- GPT
+    use({
+       "dpayne/CodeGPT.nvim",
+       requires = {
+          "MunifTanjim/nui.nvim",
+          "nvim-lua/plenary.nvim",
+       },
+       config = function()
+          require("codegpt.config")
+       end
+     
+    })
     -- use{ 'sjl/gundo.vim', setup = function() vim.g.gundo_auto_preview = 1 end }
     use {'mbbill/undotree'}
     -- use {'sindrets/undoquit.vim'}
@@ -88,10 +100,8 @@ packer.startup({
     -- -- indent-blankline
     -- use("lukas-reineke/indent-blankline.nvim")
     -- --------------------- LSP --------------------
-    -- -- use({ "williamboman/nvim-lsp-installer", commit = "36b44679f7cc73968dbb3b09246798a19f7c14e0" })
-    use({ "williamboman/nvim-lsp-installer" })
     -- Lspconfig
-    use({ "neovim/nvim-lspconfig" })
+    use {'neovim/nvim-lspconfig', 'williamboman/nvim-lsp-installer'}
     -- -- 补全引擎
     use("hrsh7th/nvim-cmp")
     -- -- Snippet 引擎
@@ -177,10 +187,11 @@ packer.startup({
     max_jobs = 16,
     -- 自定义源
     git = {
-      -- default_url_format = "https://hub.fastgit.xyz/%s",
+      --default_url_format = "https://hub.fastgit.xyz/%s",
       -- default_url_format = "https://mirror.ghproxy.com/https://github.com/%s",
       -- default_url_format = "https://gitcode.net/mirrors/%s",
       -- default_url_format = "https://gitclone.com/github.com/%s",
+	default_url_format = "https://kgithub.com/%s",
     },
     -- display = {
     -- 使用浮动窗口显示

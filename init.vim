@@ -14,11 +14,12 @@ let bundle_dir = 'D:/gcbb/vim/bundles/'
 set rtp+='D:/sw/vim/vimfiles/'
 let g:my_vimrc_dir = fnamemodify((expand('$MYVIMRC')), ':p:h')
 " let g:my_vimrc_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
-let g:python3_host_prog = exepath('python.exe')
 
 " Use K to show documentation in preview window.
 lua << EOF
 --    require("insis").setup({})
+    vim.g.python3_host_prog = vim.fn.exepath('python.exe')
+    require("codegpt.config")
     require("utils.global")
     require("keybindings")
     require('plugins')
