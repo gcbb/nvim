@@ -11,7 +11,7 @@ let mapleader = ","
 "
 
 let bundle_dir = 'D:/gcbb/vim/bundles/'
-set rtp+='D:/sw/vim/vimfiles/'
+ret rtp+='D:/sw/vim/vimfiles/'
 let g:my_vimrc_dir = fnamemodify((expand('$MYVIMRC')), ':p:h')
 " let g:my_vimrc_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 
