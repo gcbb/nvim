@@ -54,6 +54,8 @@ packer.startup({
        end
      
     })
+
+    use{ 'majutsushi/tagbar'}
     -- use{ 'sjl/gundo.vim', setup = function() vim.g.gundo_auto_preview = 1 end }
     use {'mbbill/undotree'}
     -- use {'sindrets/undoquit.vim'}

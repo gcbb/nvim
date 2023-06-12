@@ -50,7 +50,7 @@ map("n", "<leader>dbg", ":call SetBreakPoint()<CR>",opt)-- set breakpoints
 
 -- "编辑和配置vimrc文件
 map("n", "<leader>ev", ":vsp $MYVIMRC<CR>",opt)
-map("n", "<leader>rv", ":source $MYVIMRC<CR>",opt)
+map("n", "<leader>rv", ":source $MYVIMRC<CR>:source $MYVIMRC<CR>urce $MYVIMRC<CR>",opt)
 map("n", "<leader>pd", ":call InserDebugMsg('normal')<CR>",opt)
 map("n", "<leader>pj", ":call InserDebugMsg('json')<CR>",opt)
 map("n", "<F6>", ":call RunDbug()<CR>",opt)
@@ -394,14 +394,25 @@ end
 -- <leader>tc 下方
 -- 特殊lazygit 窗口，需要安装lazygit
 -- <leader>tg lazygit
-pluginKeys.mapToggleTerm = function(toggleterm)
-    vim.keymap.set({ "n", "t" }, "<leader>ta", toggleterm.toggleA)
-    vim.keymap.set({ "n", "t" }, "<leader>tb", toggleterm.toggleB)
-    vim.keymap.set({ "n", "t" }, "<leader>tc", toggleterm.toggleC)
-    vim.keymap.set({ "n", "t" }, "<leader>tg", toggleterm.toggleG)
-end
---
--- -- gitsigns
+	pluginKeys.mapToggleTerm = function(toggleterm)
+	    vim.keymap.set({ "n", "t" }, "<leader>ta", toggleterm.toggleA)
+	    vim.keymap.set({ "n", "t" }, "<leader>tb", toggleterm.toggleB)
+	    vim.keymap.set({ "n", "t" }, "<leader>tc", toggleterm.toggleC)
+	    vim.keymap.set({ "n", "t" }, "<leader>tg", toggleterm.toggleG)
+	end
+	--
+	pluginKeys.Tagbar = function(tagbar)
+
+	    map("n", "<F3>", ":TagbarToggle<CR>", opt)
+	    --
+	    --     map <Leader>tb       "快捷键设置
+	    --     noremap  :Tagbar<CR>
+	    --     "autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()  "如果是c语言的程序的话，tagbar自动开启
+	    -- " 启用 NERDTree 插件
+	    -- "
+	end
+
+-- gitsigns
 -- pluginKeys.gitsigns_on_attach = function(bufnr)
 --   local gs = package.loaded.gitsigns
 --

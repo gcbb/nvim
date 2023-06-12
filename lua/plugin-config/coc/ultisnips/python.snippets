@@ -32,15 +32,19 @@ for root,dirs,files in os.walk(data_dir,topdown=True):
 
 endsnippet
 snippet loggingconfig "inert logging config info " b
-log_file = None
-logging.basicConfig(
-    filename=log_file,
-    format="%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s",
-    datefmt="%Y-%m-%d:%H:%M:%S",
-    # level=logging.DEBUG
-    level=logging.INFO,
-    # level=logging.WARNING
-)
+	log_file = None
+	logging.basicConfig(
+			filename=log_file,
+		format="%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s",
+		datefmt="%Y-%m-%d:%H:%M:%S",
+		# level=logging.DEBUG
+		level=logging.INFO,
+		# level=logging.WARNING
+	)
+endsnippet
+
+snippet v1  "test v1" b
+	info = str('代码第{}行, 函数名称 {}'.format(sys._getframe().f_lineno, sys._getframe().f_code.co_name))
 endsnippet
 
 snippet insertline  "insert code info" b
