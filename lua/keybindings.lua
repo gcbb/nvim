@@ -11,8 +11,8 @@ vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
 local opt = {
-  noremap = true,
-  silent = true,
+    noremap = true,
+    silent = true,
 }
 
 -- 本地变量
@@ -41,6 +41,11 @@ map("n", "<C-Up>", ":resize -5<CR>", opt)
 --
 -- "运行文件 
 map("n", "<leader>rf", ":call RunFile('file')<CR>", opt)
+map("n", "<leader>pd", ":call InserDebugMsg('normal')<CR>",opt)
+map("n", "<leader>pj", ":call InserDebugMsg('json')<CR>",opt)
+map("n", "<F6>", ":call RunDbug()<CR>",opt)
+map("n", "<Leader>l", ":call InsertLineNumber()<CR>",opt)
+map("n", "<Leader>it", "=strftime('%F %X')<CR>gP",opt)
 
 -- "按照文件类型执行不同的命令
 map("n", "<F4>", ":call RunFile('file')<CR>", opt)--   "运行main_文件 
@@ -51,16 +56,10 @@ map("n", "<leader>dbg", ":call SetBreakPoint()<CR>",opt)-- set breakpoints
 -- "编辑和配置vimrc文件
 map("n", "<leader>ev", ":vsp $MYVIMRC<CR>",opt)
 map("n", "<leader>rv", ":source $MYVIMRC<CR>:source $MYVIMRC<CR>urce $MYVIMRC<CR>",opt)
-map("n", "<leader>pd", ":call InserDebugMsg('normal')<CR>",opt)
-map("n", "<leader>pj", ":call InserDebugMsg('json')<CR>",opt)
-map("n", "<F6>", ":call RunDbug()<CR>",opt)
-map("n", "<F5>", "<Plug>VimspectorContinue",opt)
-map("n", "<Leader>l", ":call InsertLineNumber()<CR>",opt)
-map("n", "<Leader>it", "=strftime('%F %X')<CR>gP",opt)
 
 --undotree
 map("n", "<Leader>u", ":UndotreeToggle<CR>:UndotreeFocus<CR>",opt)
-    -- "替换\\为/
+-- "替换\\为/
 map("n", "<Leader>rs", [[:s/\\/\\//g<CR>]],opt)
 -- $跳到行尾不带空格 (交换$ 和 g_)
 map("v", "$", "g_", opt)
@@ -129,34 +128,35 @@ map("n", "<A-m>", ":NvimTreeToggle<CR>", opt)
 map("n", "<leader>m", ":NvimTreeToggle<CR>", opt)
 map("n", "<F2>", ":NvimTreeToggle<CR>", opt)
 -- 列表快捷键
-pluginKeys.nvimTreeList = { -- 打开文件或文件夹
-  { key = { "o", "<2-LeftMouse>" }, action = "edit" },
-  { key = "<CR>", action = "system_open" },
-  -- v分屏打开文件
-  { key = "v", action = "vsplit" },
-  -- h分屏打开文件
-  { key = "h", action = "split" },
-  -- Ignore (node_modules)
-  { key = "i", action = "toggle_ignored" },
-  -- Hide (dotfiles)
-  { key = ".", action = "toggle_dotfiles" },
-  { key = "R", action = "refresh" },
-  -- 文件操作
-  { key = "a", action = "create" },
-  { key = "d", action = "remove" },
-  { key = "r", action = "rename" },
-  { key = "x", action = "cut" },
-  { key = "c", action = "copy" },
-  { key = "p", action = "paste" },
-  { key = "y", action = "copy_name" },
-  { key = "Y", action = "copy_path" },
-  { key = "gy", action = "copy_absolute_path" },
-  { key = "I", action = "toggle_file_info" },
-  { key = "n", action = "tabnew" },
-  -- 进入下一级
-  { key = { "]" }, action = "cd" },
-  -- 进入上一级
-  { key = { "[" }, action = "dir_up" },
+pluginKeys.nvimTreeList = {
+    -- 打开文件或文件夹
+    { key = { "o", "<2-LeftMouse>" }, action = "edit" },
+    { key = "<CR>", action = "system_open" },
+    -- v分屏打开文件
+    { key = "v", action = "vsplit" },
+    -- h分屏打开文件
+    { key = "h", action = "split" },
+    -- Ignore (node_modules)
+    { key = "i", action = "toggle_ignored" },
+    -- Hide (dotfiles)
+    { key = ".", action = "toggle_dotfiles" },
+    { key = "R", action = "refresh" },
+    -- 文件操作
+    { key = "a", action = "create" },
+    { key = "d", action = "remove" },
+    { key = "r", action = "rename" },
+    { key = "x", action = "cut" },
+    { key = "c", action = "copy" },
+    { key = "p", action = "paste" },
+    { key = "y", action = "copy_name" },
+    { key = "Y", action = "copy_path" },
+    { key = "gy", action = "copy_absolute_path" },
+    { key = "I", action = "toggle_file_info" },
+    { key = "n", action = "tabnew" },
+    -- 进入下一级
+    { key = { "]" }, action = "cd" },
+    -- 进入上一级
+    { key = { "[" }, action = "dir_up" },
 }
 -- -- bufferline
 -- -- 左右Tab切换
@@ -178,38 +178,41 @@ map("n", "<C-p>", ":Telescope find_files<CR>", opt)
 map("n", "<C-f>", ":Telescope live_grep<CR>", opt)
 -- Telescope 列表中 插入模式快捷键
 pluginKeys.telescopeList = {
-  i = {
-    -- 上下移动
-    ["<C-k>"] = "move_selection_previous",
-    ["<C-n>"] = "move_selection_next",
-    ["<C-p>"] = "move_selection_previous",
-    -- 历史记录
-    ["<Down>"] = "cycle_history_next",
-    ["<Up>"] = "cycle_history_prev",
-    -- 关闭窗口
-    -- ["<esc>"] = actions.close,
-    ["<C-c>"] = "close",
-    -- 预览窗口上下滚动
-    ["<C-u>"] = "preview_scrolling_up",
-    ["<C-d>"] = "preview_scrolling_down",
-  }
+    i = {
+        -- 上下移动
+        ["<C-k>"] = "move_selection_previous",
+        ["<C-n>"] = "move_selection_next",
+        ["<C-p>"] = "move_selection_previous",
+        -- 历史记录
+        ["<Down>"] = "cycle_history_next",
+        ["<Up>"] = "cycle_history_prev",
+        -- 关闭窗口
+        -- ["<esc>"] = actions.close,
+        ["<C-c>"] = "close",
+        -- 预览窗口上下滚动
+        ["<C-u>"] = "preview_scrolling_up",
+        ["<C-d>"] = "preview_scrolling_down",
+    }
 }
 
 --
 -- -- 代码注释插件
 -- -- see ./lua/plugin-config/comment.lua
--- pluginKeys.comment = {
---   -- Normal 模式快捷键
---   toggler = {
---     line = "gcc", -- 行注释
---     block = "gbc", -- 块注释
---   },
---   -- Visual 模式
---   opleader = {
---     line = "gc",
---     bock = "gb",
---   },
--- }
+pluginKeys.comment = {
+  -- Normal 模式快捷键
+  toggler = {
+    line = "<leader>cc", -- 行注释
+    block = "<leader>bc", -- 块注释
+  },
+  -- Visual 模式
+  opleader = {
+    -- line = "gc",
+    -- bock = "gb",
+
+    line = "<leader>cc", -- 行注释
+    block = "<leader>bc", -- 块注释
+  },
+}
 -- -- ctrl + /
 -- map("n", "<C-_>", "gcc", { noremap = false })
 -- map("v", "<C-_>", "gcc", { noremap = false })
@@ -275,48 +278,60 @@ pluginKeys.telescopeList = {
 --
 -- -- nvim-dap
 pluginKeys.mapDAP = function()
-  -- 开始
-  map("n", "<leader>dd", ":RustDebuggables<CR>", opt)
-  -- 结束
-  map(
+    -- 开始
+    map("n", "<leader>dd", ":RustDebuggables<CR>", opt)
+    -- 结束
+    map(
     "n",
     "<leader>de",
     ":lua require'dap'.close()<CR>"
-      .. ":lua require'dap'.terminate()<CR>"
-      .. ":lua require'dap.repl'.close()<CR>"
-      .. ":lua require'dapui'.close()<CR>"
-      .. ":lua require('dap').clear_breakpoints()<CR>"
-      .. "<C-w>o<CR>",
+    .. ":lua require'dap'.terminate()<CR>"
+    .. ":lua require'dap.repl'.close()<CR>"
+    .. ":lua require'dapui'.close()<CR>"
+    .. ":lua require('dap').clear_breakpoints()<CR>"
+    .. "<C-w>o<CR>",
     opt
-  )
-  -- 继续
-  map("n", "<leader>dc", ":lua require'dap'.continue()<CR>", opt)
-  -- 设置断点
-  map("n", "<leader>dt", ":lua require('dap').toggle_breakpoint()<CR>", opt)
-  map("n", "<leader>dT", ":lua require('dap').clear_breakpoints()<CR>", opt)
-  --  stepOver, stepOut, stepInto
-  map("n", "<leader>dj", ":lua require'dap'.step_over()<CR>", opt)
-  map("n", "<leader>dk", ":lua require'dap'.step_out()<CR>", opt)
-  map("n", "<leader>dl", ":lua require'dap'.step_into()<CR>", opt)
-  -- 弹窗
-  map("n", "<leader>dh", ":lua require'dapui'.eval()<CR>", opt)
+    )
+    -- 继续
+    map("n", "<leader>dc", ":lua require'dap'.continue()<CR>", opt)
+    -- 设置断点
+    map("n", "<leader>dt", ":lua require('dap').toggle_breakpoint()<CR>", opt)
+    map("n", "<leader>dT", ":lua require('dap').clear_breakpoints()<CR>", opt)
+    --  stepOver, stepOut, stepInto
+    map("n", "<leader>dj", ":lua require'dap'.step_over()<CR>", opt)
+    map("n", "<leader>dk", ":lua require'dap'.step_out()<CR>", opt)
+    map("n", "<leader>dl", ":lua require'dap'.step_into()<CR>", opt)
+    -- 弹窗
+    map("n", "<leader>dh", ":lua require'dapui'.eval()<CR>", opt)
 end
 --
 -- vimspector
+--
 pluginKeys.mapVimspector = function()
-  -- 开始
-  map("n", "<leader>dd", ":call vimspector#Launch()<CR>", opt)
-  -- 结束
-  map("n", "<Leader>de", ":call vimspector#Reset()<CR>", opt)
-  -- 继续
-  map("n", "<Leader>dc", ":call vimspector#Continue()<CR>", opt)
-  -- 设置断点
-  map("n", "<Leader>dt", ":call vimspector#ToggleBreakpoint()<CR>", opt)
-  map("n", "<Leader>dT", ":call vimspector#ClearBreakpoints()<CR>", opt)
-  --  stepOver, stepOut, stepInto
-  map("n", "<leader>dj", "<Plug>VimspectorStepOver", opt)
-  map("n", "<leader>dk", "<Plug>VimspectorStepOut", opt)
-  map("n", "<leader>dl", "<Plug>VimspectorStepInto", opt)
+    -- 开始
+    vim.g.vimspector_enable_mappings = 'VISUAL_STUDIO'
+
+    -- vim.g.vimspector_enable_mappings = 'VISUAL_STUDIO'
+    map("n", "<leader>dd", ":call vimspector#Launch()<CR>", opt)
+    -- 结束
+    map("n", "<Leader>de", ":call vimspector#Reset()<CR>", opt)
+    -- 继续
+    map("n", "<Leader>dc", ":call vimspector#Continue()<CR>", opt)
+    -- 设置断点
+    map("n", "<Leader>dt", ":call vimspector#ToggleBreakpoint()<CR>", opt)
+    map("n", "<Leader>dT", ":call vimspector#ClearBreakpoints()<CR>", opt)
+    --  stepOver, stepOut, stepInto
+    map("n", "<leader>dj", "<Plug>VimspectorStepOver", opt)
+    map("n", "<leader>dk", "<Plug>VimspectorStepOut", opt)
+    map("n", "<leader>dl", "<Plug>VimspectorStepInto", opt)
+
+    -- 设置快捷键来启动/停止调试会话
+    map("n", "<F5>", "<Plug>VimspectorContinue",opt)
+    vim.api.nvim_set_keymap('n', '<Leader>dd', ':VimspectorToggle<CR>', { silent = true })
+    map("n", "<Leader>di", "<Plug>VimspectorBalloonEval",opt)
+    map("n", "<Leader>dr", "<Plug>VimspectorReset",opt)
+
+    vim.notify("loaded_vimspector key")
 end
 --
 -- -- nvim-cmp 自动补全
@@ -394,23 +409,23 @@ end
 -- <leader>tc 下方
 -- 特殊lazygit 窗口，需要安装lazygit
 -- <leader>tg lazygit
-	pluginKeys.mapToggleTerm = function(toggleterm)
-	    vim.keymap.set({ "n", "t" }, "<leader>ta", toggleterm.toggleA)
-	    vim.keymap.set({ "n", "t" }, "<leader>tb", toggleterm.toggleB)
-	    vim.keymap.set({ "n", "t" }, "<leader>tc", toggleterm.toggleC)
-	    vim.keymap.set({ "n", "t" }, "<leader>tg", toggleterm.toggleG)
-	end
-	--
-	pluginKeys.Tagbar = function(tagbar)
+pluginKeys.mapToggleTerm = function(toggleterm)
+    vim.keymap.set({ "n", "t" }, "<leader>ta", toggleterm.toggleA)
+    vim.keymap.set({ "n", "t" }, "<leader>tb", toggleterm.toggleB)
+    vim.keymap.set({ "n", "t" }, "<leader>tc", toggleterm.toggleC)
+    vim.keymap.set({ "n", "t" }, "<leader>tg", toggleterm.toggleG)
+end
+--
+pluginKeys.Tagbar = function(tagbar)
 
-	    map("n", "<F3>", ":TagbarToggle<CR>", opt)
-	    --
-	    --     map <Leader>tb       "快捷键设置
-	    --     noremap  :Tagbar<CR>
-	    --     "autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()  "如果是c语言的程序的话，tagbar自动开启
-	    -- " 启用 NERDTree 插件
-	    -- "
-	end
+    map("n", "<F3>", ":TagbarToggle<CR>", opt)
+    --
+    --     map <Leader>tb       "快捷键设置
+    --     noremap  :Tagbar<CR>
+    --     "autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()  "如果是c语言的程序的话，tagbar自动开启
+    -- " 启用 NERDTree 插件
+    -- "
+end
 
 -- gitsigns
 -- pluginKeys.gitsigns_on_attach = function(bufnr)

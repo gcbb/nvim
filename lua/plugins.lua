@@ -37,8 +37,6 @@ packer.startup({
     -- Packer 可以升级自己
     use("wbthomason/packer.nvim")
     -------------------------- plugins -------------------------------------------
-    --commenter
-    -- use('scrooloose/nerdcommenter')
     -- use 'keaising/im-select.nvim'
 
     use {'neoclide/coc.nvim', branch = 'master', run = 'yarn install --frozen-lockfile'}
@@ -66,19 +64,21 @@ packer.startup({
 
         -- let g:gundo_prefer_python3=1
 -- tree
-    use({
-      "kyazdani42/nvim-tree.lua",
-      requires = "kyazdani42/nvim-web-devicons",
-    })
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional
+        },
+    }
     -- bufferline
     use({
       "akinsho/bufferline.nvim",
-      requires = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" },
+      requires = { "nvim-tree/nvim-web-devicons", "moll/vim-bbye" },
     })
     -- lualine
     use({
       "nvim-lualine/lualine.nvim",
-      requires = { "kyazdani42/nvim-web-devicons" },
+      requires = { "nvim-tree/nvim-web-devicons",opt=true },
     })
     use("arkav/lualine-lsp-progress")
     -- -- telescope
@@ -94,13 +94,13 @@ packer.startup({
     -- project
     use("ahmedkhalf/project.nvim")
     -- -- treesitter
-    -- use({
-    --   "nvim-treesitter/nvim-treesitter",
-    --   run = ":TSUpdate",
-    -- })
+    use({
+      "nvim-treesitter/nvim-treesitter",
+      run = ":TSUpdate",
+    })
     -- use("p00f/nvim-ts-rainbow")
     -- -- indent-blankline
-    -- use("lukas-reineke/indent-blankline.nvim")
+    use ("lukas-reineke/indent-blankline.nvim")
     -- --------------------- LSP --------------------
     -- Lspconfig
     use {'neovim/nvim-lspconfig', 'williamboman/nvim-lsp-installer'}
@@ -156,11 +156,14 @@ packer.startup({
     use("EdenEast/nightfox.nvim")
 
     -- -------------------------------------------------------
+    --
+
+
     use({ "akinsho/toggleterm.nvim" })
     -- -- surround
     -- use("ur4ltz/surround.nvim")
     -- -- Comment
-    -- use("numToStr/Comment.nvim")
+    use("numToStr/Comment.nvim")
     -- -- nvim-autopairs
     -- use("windwp/nvim-autopairs")
     -- git
@@ -175,6 +178,12 @@ packer.startup({
     -- use("jbyuki/one-small-step-for-vimkind")
     --
     use("j-hui/fidget.nvim")
+
+    use('skywind3000/vim-terminal-help')
+
+    vim.g.terminal_shell = 'pwsh'
+
+
     if paccker_bootstrap then
       packer.sync()
     end

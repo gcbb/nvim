@@ -81,5 +81,7 @@ vim.o.showtabline = 2
 vim.o.showmode = false
 -- 配置剪切板
 vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard = "unnamed"
 vim.cmd([[set packpath+=~/gVim/plugs/]]
 vim.fn.setenv('PATH', '~/gVim/exe;' .. vim.fn.getenv('PATH'))
+vim.env.PATH='~/gVim/exe;' .. vim.env.PATH
