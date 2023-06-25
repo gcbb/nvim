@@ -55,7 +55,8 @@ map("n", "<leader>dbg", ":call SetBreakPoint()<CR>",opt)-- set breakpoints
 
 -- "编辑和配置vimrc文件
 map("n", "<leader>ev", ":vsp $MYVIMRC<CR>",opt)
-map("n", "<leader>rv", ":source $MYVIMRC<CR>:source $MYVIMRC<CR>urce $MYVIMRC<CR>",opt)
+-- map("n", "<leader>rv", ":source $MYVIMRC<CR>: $MYVIMRC<CR>source $MYVIMRC<CR>",opt)
+map("n", "<leader>rv", ":luafile $MYVIMRC<CR>:luafile $MYVIMRC<CR>",opt)
 
 --undotree
 map("n", "<Leader>u", ":UndotreeToggle<CR>:UndotreeFocus<CR>",opt)

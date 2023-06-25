@@ -117,7 +117,8 @@ vim.api.nvim_set_keymap('n', '<F8>', ':call Pep8()<CR>', { silent = true })
 
 -- 检查 cfg.vim 文件是否可读并加载
 if vim.fn.filereadable("cfg.vim") then
-    vim.cmd("source cfg.vim")
+    -- TODO filereadable 不能正常返回值
+    -- vim.cmd("source cfg.vim")
 end
 
 -- 定义构建 Quickfix 列表的函数

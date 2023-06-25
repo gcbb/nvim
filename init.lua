@@ -1,9 +1,10 @@
 vim.g.python3_host_prog = vim.fn.exepath('python.exe')
 require("basic")
+require('plugins')
+
 require("config")
 require("utils.global")
 require("keybindings")
-require('plugins')
 require('colorscheme')
 -- require('terminal')
 require("codegpt.config")
