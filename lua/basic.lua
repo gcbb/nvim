@@ -31,8 +31,8 @@ vim.o.smartindent = true
 -- 搜索大小写不敏感，除非包含大写
 vim.o.ignorecase = true
 vim.o.smartcase = true
--- 搜索不要高亮
-vim.o.hlsearch = false
+-- 搜索高亮
+vim.o.hlsearch = true
 -- 边输入边搜索
 vim.o.incsearch = true
 -- 命令行高为2，提供足够的显示空间
@@ -66,9 +66,9 @@ vim.g.completeopt = "menu,menuone,noselect,noinsert"
 vim.o.termguicolors = true
 vim.opt.termguicolors = true
 -- 是否显示不可见字符
-vim.o.list = false
+vim.o.list = true
 -- 不可见字符的显示，这里只把空格显示为一个点
-vim.o.listchars = "space:·,tab:··"
+vim.o.listchars = "tab:>-,trail:.,space:."
 -- 补全增强
 vim.o.wildmenu = true
 -- Dont' pass messages to |ins-completin menu|
@@ -81,7 +81,6 @@ vim.o.showtabline = 2
 vim.o.showmode = false
 -- 配置剪切板
 vim.opt.clipboard = "unnamedplus"
-vim.opt.clipboard = "unnamed"
-vim.cmd([[set packpath+=~/gVim/plugs/]]
-vim.fn.setenv('PATH', '~/gVim/exe;' .. vim.fn.getenv('PATH'))
+vim.cmd([[set packpath+=~/gVim/plugs/]])
+-- vim.fn.setenv('PATH', '~/gVim/exe;' .. vim.fn.getenv('PATH'))
 vim.env.PATH='~/gVim/exe;' .. vim.env.PATH
