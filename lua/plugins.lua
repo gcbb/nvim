@@ -18,10 +18,10 @@ if fn.empty(fn.glob(install_path)) > 0 then
   })
 
   -- https://github.com/wbthomason/packer.nvim/issues/750
-  local rtp_addition = vim.fn.stdpath("data") .. "/site/pack/*/start/*"
-  if not string.find(vim.o.runtimepath, rtp_addition) then
-    vim.o.runtimepath = rtp_addition .. "," .. vim.o.runtimepath
-  end
+  -- local rtp_addition = vim.fn.stdpath("data") .. "/site/pack/*/start/*"
+  -- if not string.find(vim.o.runtimepath, rtp_addition) then
+  --  vim.o.runtimepath = rtp_addition .. "," .. vim.o.runtimepath
+  -- end
   vim.notify("Pakcer.nvim 安装完毕")
 end
 
@@ -96,7 +96,10 @@ packer.startup({
     -- -- treesitter
     use({
       "nvim-treesitter/nvim-treesitter",
-      run = ":TSUpdate",
+        run = function()
+            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+            ts_update()
+        end
     })
     -- use("p00f/nvim-ts-rainbow")
     -- -- indent-blankline
