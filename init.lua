@@ -18,7 +18,7 @@ require("plugin-config.project")
 require("plugin-config.nvim-tree")
 
 require("plugin-config.debuger")
-require('plugin-config.nvim-treesitter')
+-- require('plugin-config.nvim-treesitter')
 require("plugin-config.lualine")
 
 -- require("plugin-config.toggleterm")
@@ -31,6 +31,6 @@ require("plugin-config.lualine")
 --     require("cmp")
  -- require("lsp.ui")
 -- 格式化
-require("lsp.formatter")
+-- require("lsp.formatter")
 --require("lsp.null-ls")
 -- require("bufferline").setup{}

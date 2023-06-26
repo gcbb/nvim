@@ -659,7 +659,7 @@ local UserConfig = {
   ---@class MirrorConfig
   mirror = {
     -- treesitter = "https://kgithub.com/",
-    treesitter = false,
+     treesitter = false,
     packer = "https://kgithub.com/",
     -- TODO: LSP DAP mirror config
     -- carefully change these value

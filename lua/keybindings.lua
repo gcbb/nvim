@@ -200,19 +200,8 @@ pluginKeys.telescopeList = {
 -- -- 代码注释插件
 -- -- see ./lua/plugin-config/comment.lua
 pluginKeys.comment = {
-  -- Normal 模式快捷键
-  toggler = {
-    line = "<leader>cc", -- 行注释
-    block = "<leader>bc", -- 块注释
-  },
-  -- Visual 模式
-  opleader = {
-    -- line = "gc",
-    -- bock = "gb",
-
-    line = "<leader>cc", -- 行注释
-    block = "<leader>bc", -- 块注释
-  },
+  line_mapping = "<leader>cc", 
+  operator_mapping = "<leader>cb",
 }
 -- -- ctrl + /
 -- map("n", "<C-_>", "gcc", { noremap = false })
@@ -332,7 +321,7 @@ pluginKeys.mapVimspector = function()
     map("n", "<Leader>di", "<Plug>VimspectorBalloonEval",opt)
     map("n", "<Leader>dr", "<Plug>VimspectorReset",opt)
 
-    vim.notify("loaded_vimspector key")
+  --  vim.notify("loaded_vimspector key")
 end
 --
 -- -- nvim-cmp 自动补全
