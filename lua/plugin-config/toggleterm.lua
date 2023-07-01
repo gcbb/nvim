@@ -6,6 +6,8 @@ if not status then
 end
 
 toggleterm.setup({
+  -- shell = vim.o.shell,
+  shell = 'pwsh',
   size = function(term)
     if term.direction == "horizontal" then
       return 15
@@ -62,6 +64,13 @@ local tc = Terminal:new({
 local M = {}
 
 M.toggleA = function()
+  vim.g.toggleterm_terminal_executables = {
+-- " 设置默认终端为 Bash
+-- let g:toggleterm_terminal_mapping = '<Leader>t'
+     bash='bash'
+   }
+  vim.g.toggleterm_default_mapping = 0
+  
   if ta:is_open() then
     ta:close()
     return
@@ -93,6 +102,11 @@ end
 
 M.toggleG = function()
   lazygit:toggle()
+end
+
+M.RunFile=function()
+    -- vim.cmd("TermExec cmd='python expand('%')'")
+ -- TermExec cmd="python expand('%')"
 end
 
 require("keybindings").mapToggleTerm(M)

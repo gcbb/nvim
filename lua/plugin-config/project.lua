@@ -13,6 +13,7 @@ end
 vim.g.nvim_tree_respect_buf_cwd = 1
 project.setup({
   detection_methods = { "pattern" },
+  update_root = false,
   patterns = {
     "README.md",
     "readme.md",

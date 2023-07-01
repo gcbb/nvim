@@ -48,7 +48,6 @@ map("n", "<Leader>l", ":call InsertLineNumber()<CR>",opt)
 map("n", "<Leader>it", "=strftime('%F %X')<CR>gP",opt)
 
 -- "按照文件类型执行不同的命令
-map("n", "<F4>", ":call RunFile('file')<CR>", opt)--   "运行main_文件 
 map("n", "<leader>rt", ":call RunFile('test')<CR>",opt)-- "运行测试文件 
 map("n", "<leader>rm", ":call RunFile('main')<CR>",opt)-- "运行main_文件 
 map("n", "<leader>dbg", ":call SetBreakPoint()<CR>",opt)-- set breakpoints
@@ -200,6 +199,22 @@ pluginKeys.telescopeList = {
 -- -- 代码注释插件
 -- -- see ./lua/plugin-config/comment.lua
 pluginKeys.comment = {
+  -- Normal 模式快捷键
+  toggler = {
+    line = "<leader>cc", -- 行注释
+    block = "<leader>bc", -- 块注释
+  },
+  -- Visual 模式
+  opleader = {
+    -- line = "gc",
+    -- bock = "gb",
+
+    line = "<leader>cc", -- 行注释
+    block = "<leader>bc", -- 块注释
+  },
+}
+
+pluginKeys.nvimComment = {
   line_mapping = "<leader>cc", 
   operator_mapping = "<leader>cb",
 }
@@ -208,13 +223,13 @@ pluginKeys.comment = {
 -- map("v", "<C-_>", "gcc", { noremap = false })
 --
 -- -- lsp 回调函数快捷键设置
--- pluginKeys.mapLSP = function(mapbuf)
+pluginKeys.mapLSP = function(mapbuf)
 --   -- rename
 --   [>
 --   Lspsaga 替换 rn
 --   mapbuf("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
 --   --]]
---   mapbuf("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
+  mapbuf("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
 --   -- code action
 --   [>
 --   Lspsaga 替换 ca
@@ -257,7 +272,7 @@ pluginKeys.comment = {
 --   -- mapbuf('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opt)
 --   -- mapbuf('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opt)
 --   -- mapbuf('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opt)
--- end
+end
 --
 -- -- typescript 快捷键
 -- pluginKeys.mapTsLSP = function(mapbuf)

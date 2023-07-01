@@ -3,11 +3,12 @@ if not status then
   vim.notify("没有找到 nvim-treesitter")
   return
 end
-
+require('nvim-treesitter.install').prefer_git = false
+require 'nvim-treesitter.install'.compilers = { "clang", "gcc" }
 treesitter.setup({
   -- 安装 language parser
   -- :TSInstallInfo 命令查看支持的语言
-  ensure_installed = { "json", "html", "css", "vim", "lua", "javascript","yml" },
+  ensure_installed = {"python", "vim", "yaml" ,"c","cpp", "json", "markdown","html"},
   -- ensure_installed = "maintained",
 
   -- 启用代码高亮模块

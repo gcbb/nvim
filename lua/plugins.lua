@@ -94,13 +94,13 @@ packer.startup({
     -- project
     use("ahmedkhalf/project.nvim")
     -- -- treesitter
-    -- use({
-    --  "nvim-treesitter/nvim-treesitter",
-    --    run = function()
-    --        local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-    --        ts_update()
-    --    end
-    -- })
+    use({
+      "nvim-treesitter/nvim-treesitter",
+        run = function()
+            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+            ts_update()
+        end
+     })
     -- use("p00f/nvim-ts-rainbow")
     -- -- indent-blankline
     use ("lukas-reineke/indent-blankline.nvim")
@@ -166,8 +166,8 @@ packer.startup({
     -- -- surround
     -- use("ur4ltz/surround.nvim")
     -- -- Comment
-    -- use("numToStr/Comment.nvim")
-    use("terrortylor/nvim-comment")
+    use("numToStr/Comment.nvim")
+    --use("terrortylor/nvim-comment")
     use("preservim/nerdcommenter")
 
     -- -- nvim-autopairs
@@ -186,7 +186,6 @@ packer.startup({
     use("j-hui/fidget.nvim")
 
     use('skywind3000/vim-terminal-help')
-
     vim.g.terminal_shell = 'pwsh'
 
 

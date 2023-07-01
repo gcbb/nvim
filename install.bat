@@ -127,7 +127,8 @@ echo "4: 切换到C工程build目录下运行cmake.bat生成Vim 的C文件跳转搜索文件夹即可"
 
 echo "5: 安装pip pynvim" 
 pip install pynvim
-
+echo "6: 安装mingw" 
+choco install mingw
 echo ""
 echo "安装已完成!"
 echo "=============================================================================="
