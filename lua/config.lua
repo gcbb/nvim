@@ -39,20 +39,44 @@
 
 vim.o.foldmethod = "indent"
 
+-- 在光标下的变量后面插入字符串
+function InserDebugMsg()
+    -- 获取当前光标所在行的文本
+    local line = vim.api.nvim_get_current_line()
+
+    -- 获取光标所在位置的变量
+    local _, col = unpack(vim.api.nvim_win_get_cursor(0))
+    local variable = string.match(line, "[%w_]+", col)
+
+    if variable then
+        -- 要插入的字符串
+        local stringToInsert = 'Logger.debug("test info is " + str(' .. variable .. '))'
+        --local stringToInsert = '   Logger.debug("test info is " .. tostring(' .. variable .. '))'
+        -- 在变量后插入字符串
+        --local newLine = string.gsub(line, variable, variable .. stringToInsert)
+
+        -- 更新文本
+        vim.api.nvim_win_set_cursor(0, {vim.api.nvim_win_get_cursor(0)[1]+1, 0})
+        vim.api.nvim_set_current_line(stringToInsert)
+    end
+end
+
+-- 创建快捷键映射
+-- vim.api.nvim_set_keymap('n', 'pd', ':lua insertStringAfterVariable()<CR>', { noremap = true })
 -- 定义自定义函数 InserDebugMsg
-vim.cmd([[
-  function! InserDebugMsg(mode)
-      if a:mode != "json"
-          execute "normal! viwyoLogger.debug(''"
-          execute "normal! pa='+str(''"
-          execute "normal! pa))"
-      else
-          execute "normal! viwyoLogger.debug(''"
-          execute "normal! pa='+json.dumps(''"
-          execute "normal! pa,indent = 4))"
-      endif
-  endfunction
-]])
+-- vim.cmd([[
+--   function! insertStringAfterVariable(mode)
+--       if a:mode != "json"
+--           execute "normal! viwyoLogger.debug(''"
+--           execute "normal! pa='+str(''"
+--           execute "normal! pa))"
+--       else
+--           execute "normal! viwyoLogger.debug(''"
+--           execute "normal! pa='+json.dumps(''"
+--           execute "normal! pa,indent = 4))"
+--       endif
+--   endfunction
+-- ]])
 
 -- 定义自定义函数 InserDebugJsonMsg
 vim.cmd([[

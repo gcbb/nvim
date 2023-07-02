@@ -168,7 +168,7 @@ packer.startup({
     -- -- Comment
     use("numToStr/Comment.nvim")
     --use("terrortylor/nvim-comment")
-    use("preservim/nerdcommenter")
+    -- use("preservim/nerdcommenter")
 
     -- -- nvim-autopairs
     -- use("windwp/nvim-autopairs")

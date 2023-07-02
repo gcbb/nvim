@@ -41,7 +41,9 @@ map("n", "<C-Up>", ":resize -5<CR>", opt)
 --
 -- "运行文件 
 map("n", "<leader>rf", ":call RunFile('file')<CR>", opt)
-map("n", "<leader>pd", ":call InserDebugMsg('normal')<CR>",opt)
+
+vim.api.nvim_set_keymap('n', 'pd', ':lua InserDebugMsg()<CR>', { noremap = true })
+-- map("n", "<leader>pd", ":call InserDebugMsg('normal')<CR>",opt)
 map("n", "<leader>pj", ":call InserDebugMsg('json')<CR>",opt)
 map("n", "<F6>", ":call RunDbug()<CR>",opt)
 map("n", "<Leader>l", ":call InsertLineNumber()<CR>",opt)
