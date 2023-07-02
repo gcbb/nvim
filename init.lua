@@ -10,6 +10,8 @@ require("codegpt.config")
 
 require('plugin-config.nvim-treesitter')
 require('plugin-config.comment')
+
+require('leap').add_default_mappings()
 require('plugin-config.indent-blankline')
 require('plugin-config.coc')
 require("plugin-config.telescope")

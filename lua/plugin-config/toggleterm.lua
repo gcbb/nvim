@@ -103,10 +103,4 @@ end
 M.toggleG = function()
   lazygit:toggle()
 end
-
-M.RunFile=function()
-    -- vim.cmd("TermExec cmd='python expand('%')'")
- -- TermExec cmd="python expand('%')"
-end
-
 require("keybindings").mapToggleTerm(M)

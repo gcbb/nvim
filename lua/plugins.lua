@@ -12,8 +12,8 @@ if fn.empty(fn.glob(install_path)) > 0 then
     "--depth",
     "1",
    -- "https://github.com/wbthomason/packer.nvim",
-    "https://kgithub.com/wbthomason/packer.nvim",
-    -- "https://gitcode.net/mirrors/wbthomason/packer.nvim",
+    -- "https://kgithub.com/wbthomason/packer.nvim",
+    "https://gitcode.net/mirrors/wbthomason/packer.nvim",
     install_path,
   })
 
@@ -186,9 +186,8 @@ packer.startup({
     use("j-hui/fidget.nvim")
 
     use('skywind3000/vim-terminal-help')
+    use('ggandor/leap.nvim')
     vim.g.terminal_shell = 'pwsh'
-
-
     if paccker_bootstrap then
       packer.sync()
     end
@@ -207,7 +206,7 @@ packer.startup({
       -- default_url_format = "https://mirror.ghproxy.com/https://github.com/%s",
       -- default_url_format = "https://gitcode.net/mirrors/%s",
       -- default_url_format = "https://gitclone.com/github.com/%s",
-	default_url_format = "https://kgithub.com/%s",
+	default_url_format = "https://github.com/%s",
     },
     -- display = {
     -- 使用浮动窗口显示

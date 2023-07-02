@@ -1,65 +1,4 @@
----@class UserConfig
----@field colorscheme "tokyonight" | "nord" | "onedark" | "gruvbox" | "nightfox" | "nordfox" | "duskfox" | "dracula" builtin colorscheme
----@field lock_plugin_commit boolean lock plugin commit snapshots by default for stability
----@field max_highlight_line_count number disable code hightlight on big file for performance default 10000
----@field enable_imselect boolean auto switch your input method, default false  ---@see https://github.com/daipeihust/im-select
----@field enable_very_magic_search boolean enable regexp very magic mode ---@see https://www.youtube.com/watch?v=VjOcINs6QWs
----@field fix_windows_clipboard boolean fix yank problem on windows WSL2 ---@see  https://stackoverflow.com/questions/44480829/how-to-copy-to-clipboard-in-vim-of-bash-on-windows
----@field keys Commonkeys common keymappings
----@field s_windows SWindowConfig enabled by default
----@field s_tab STabConfig disabled by default
----@field cmp CMPConfig Completion user config
----@field notify NotifyConfig nvim-notify plugin user config
----@field nvimTree NvimTreeConfig nvim-tree plugin user config
----@field bufferLine BufferLineConfig bufferline.nvim plugin user config
----@field telescope TelescopeConfig telescope.nvim plugin user config
----@field surround SurroundConfig nvim-surround plugin user config
----@field venn VENNConfig venn.nvim plugin user config
----@field zen ZenConfig zen-mode.nvim plugin user config
----@field comment CommentConfig Comment.nvim plugin user config
----@field toggleterm ToggleTermConfig toggleterm.nvim plugin user config
----@field neotest NeotestConfig neotest plugin user config
----@field lsp LSPConfig LSP common config
----@field dap DAPConfig DAP common config
----@field frontend FrontendConfig Frontend development user config
----@field clangd ClangdConfig Clangd user config
----@field golang GolangConfig Golang development user config
----@field lua LuaConfig Lua development user config
----@field rust RustConfig Rust development user config
----@field bash BashConfig sh development user config
----@field python PythonConfig python development user config
----@field ruby RubyConfig ruby development user config
----@field json JsonConfig Json user config
----@field markdown MarkdownConfig
----@field toml TomlConfig Toml user config
----@field yaml YamlConfig Yaml user config
----@field docker DockerConfig Docker user config
----@field git GitConfig git user config
----@field mirror MirrorConfig mirror config
-
 vim.o.foldmethod = "indent"
-
--- 在光标下的变量后面插入字符串
-function InserDebugMsg()
-    -- 获取当前光标所在行的文本
-    local line = vim.api.nvim_get_current_line()
-
-    -- 获取光标所在位置的变量
-    local _, col = unpack(vim.api.nvim_win_get_cursor(0))
-    local variable = string.match(line, "[%w_]+", col)
-
-    if variable then
-        -- 要插入的字符串
-        local stringToInsert = 'Logger.debug("test info is " + str(' .. variable .. '))'
-        --local stringToInsert = '   Logger.debug("test info is " .. tostring(' .. variable .. '))'
-        -- 在变量后插入字符串
-        --local newLine = string.gsub(line, variable, variable .. stringToInsert)
-
-        -- 更新文本
-        vim.api.nvim_win_set_cursor(0, {vim.api.nvim_win_get_cursor(0)[1]+1, 0})
-        vim.api.nvim_set_current_line(stringToInsert)
-    end
-end
 
 -- 创建快捷键映射
 -- vim.api.nvim_set_keymap('n', 'pd', ':lua insertStringAfterVariable()<CR>', { noremap = true })
@@ -99,9 +38,11 @@ vim.cmd([[
   endfunction
 ]])
 
--- 定义自定义函数 RunFile
+-- 创建快捷键映射
+ -- vim.api.nvim_set_keymap('n', ',rf', ':lua run_file()<CR>', { noremap = true })
+
 vim.cmd([[
-  function! RunFile(mode)
+  function! RunFile_old(mode)
       exec "w"
       if &filetype == 'python' then
           if a:mode == "test" then
@@ -126,6 +67,7 @@ vim.cmd([[
   endfunction
 ]])
 
+
 -- 定义Pep8函数
 function Pep8()
     vim.cmd("w")
@@ -135,9 +77,6 @@ function Pep8()
         -- vim.fn.system("!flake8 %")
     end
 end
-
--- 设置快捷键映射
-vim.api.nvim_set_keymap('n', '<F8>', ':call Pep8()<CR>', { silent = true })
 
 -- 检查 cfg.vim 文件是否可读并加载
 if vim.fn.filereadable("cfg.vim") then
@@ -684,7 +623,7 @@ local UserConfig = {
   mirror = {
     -- treesitter = "https://kgithub.com/",
      treesitter = false,
-    packer = "https://kgithub.com/",
+    packer = "https://github.com/",
     -- TODO: LSP DAP mirror config
     -- carefully change these value
   },
