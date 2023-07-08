@@ -77,7 +77,7 @@ local plug_list = {
       -- end
 
     },
-    -- {"github/copilot.vim",  event = "VeryLazy"},
+    {"github/copilot.vim",  event = "VeryLazy"},
     { 'majutsushi/tagbar', event = "VeryLazy"},
     -- ,{ 'sjl/gundo.vim', init = function() vim.g.gundo_auto_preview = 1 end }
     {'mbbill/undotree', event = "VeryLazy"},

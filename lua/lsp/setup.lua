@@ -1,5 +1,3 @@
-print("lsp server set up")
-
 local lsp_installer = require("mason").setup({
   ui = {
     icons = {
