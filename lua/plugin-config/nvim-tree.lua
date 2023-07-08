@@ -5,13 +5,14 @@ if not status then
   vim.notify("没有找到 nvim-tree")
   return
 end
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 0
+vim.g.loaded_netrwPlugin = 0
 vim.opt.termguicolors = true
 -- 列表操作快捷键
 local list_keys = require("keybindings").nvimTreeList
 
 nvim_tree.setup({
+  on_attach = on_attach,
   -- 完全禁止内置netrw
   disable_netrw = true,
   -- 不显示 git 状态图标

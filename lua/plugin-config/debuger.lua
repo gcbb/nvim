@@ -14,9 +14,6 @@ if not vim.g.loaded_vimspector then
     -- vim.api.nvim_set_keymap('n', '<F12>', '<Plug>VimspectorStepOut', {})
 
     -- 启用 vimspector 插件
-    vim.cmd([[packadd vimspector]])
-
-
     vim.g.vimspector_session_initializations = {
         Python= {
             setup= {

@@ -64,24 +64,14 @@ end
 
 -- 在光标下的变量后面插入字符串
 function InserDebugMsg()
-    -- 获取当前光标所在行的文本
-    local line = vim.api.nvim_get_current_line()
-
-    -- 获取光标所在位置的变量
-    local _, col = unpack(vim.api.nvim_win_get_cursor(0))
-    local variable = string.match(line, "[%w_]+", col)
-
-    if variable then
-        -- 要插入的字符串
-        local stringToInsert = 'Logger.debug("test info is " + str(' .. variable .. '))'
-        --local stringToInsert = '   Logger.debug("test info is " .. tostring(' .. variable .. '))'
-        -- 在变量后插入字符串
-        --local newLine = string.gsub(line, variable, variable .. stringToInsert)
-
-        -- 更新文本
-        vim.api.nvim_win_set_cursor(0, {vim.api.nvim_win_get_cursor(0)[1]+1, 0})
-        vim.api.nvim_set_current_line(stringToInsert)
-    end
+  local indent_level = vim.fn.indent(vim.fn.line('.'))
+  local variable_name = vim.fn.expand("<cword>")
+  local next_line_number = vim.api.nvim_win_get_cursor(0)[1] + 1
+  -- local stringToInsert = string.rep(' ', indent_level) .. 'Logger.debug("test info is " + str(' .. variable_name .. '))'
+  local stringToInsert = 'Logger.debug("test info is " + str(' .. variable_name .. '))'
+  vim.api.nvim_feedkeys('o', 'n', true)
+  vim.api.nvim_feedkeys(stringToInsert, 'n', true)
+  -- vim.api.nvim_buf_set_lines(0, next_line_number - 1, next_line_number - 1, false, {stringToInsert})
 end
 
 -- 本地变量
@@ -113,9 +103,7 @@ map("n", "<C-Up>", ":resize -5<CR>", opt)
 --
 map('n', '<leader>rf', ':lua RunFile()<CR>', {noremap = true, silent = true})
 --map("n", "<leader>rf", ":lua RunFile()<CR>", opt)
-
-map('n', 'pd', ':lua InserDebugMsg()<CR>', { noremap = true })
--- map("n", "<leader>pd", ":call InserDebugMsg('normal')<CR>",opt)
+map('n', '<leader>pd', ':lua InserDebugMsg()<CR>', { noremap = true })
 map("n", "<leader>pj", ":call InserDebugMsg('json')<CR>",opt)
 map("n", "<F6>", ":call RunDbug()<CR>",opt)
 map("n", "<Leader>l", ":call InsertLineNumber()<CR>",opt)
@@ -131,7 +119,7 @@ vim.api.nvim_set_keymap('n', '<F8>', ':call Pep8()<CR>', { silent = true })
 -- "编辑和配置vimrc文件
 map("n", "<leader>ev", ":vsp $MYVIMRC<CR>",opt)
 -- map("n", "<leader>rv", ":source $MYVIMRC<CR>: $MYVIMRC<CR>source $MYVIMRC<CR>",opt)
-map("n", "<leader>rv", ":luafile $MYVIMRC<CR>:luafile $MYVIMRC<CR>",opt)
+map("n", "<leader>rv", ":luafile $MYVIMRC<CR>",opt)
 
 --undotree
 map("n", "<Leader>u", ":UndotreeToggle<CR>:UndotreeFocus<CR>",opt)
@@ -299,48 +287,48 @@ pluginKeys.nvimComment = {
 -- -- ctrl + /
 -- map("n", "<C-_>", "gcc", { noremap = false })
 -- map("v", "<C-_>", "gcc", { noremap = false })
---
 -- -- lsp 回调函数快捷键设置
 pluginKeys.mapLSP = function(mapbuf)
   --   -- rename
   --   [>
   --   Lspsaga 替换 rn
-  --   mapbuf("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
+  -- mapbuf("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
   --   --]]
+  print("map lsp key")
   mapbuf("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
   --   -- code action
   --   [>
   --   Lspsaga 替换 ca
   --   mapbuf("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
   --   --]]
-  --   mapbuf("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
+  mapbuf("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
   --   -- go xx
   --   [>
-  --     mapbuf('n', 'gd', '<cmd>Lspsaga preview_definition<CR>', opt)
-  --   mapbuf("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
-  --   --]]
-  --   mapbuf("n", "gd", "<cmd>lua require'telescope.builtin'.lsp_definitions({ initial_mode = 'normal', })<CR>", opt)
+  -- mapbuf('n', 'gd', '<cmd>Lspsaga preview_definition<CR>', opt)
+  --]]
+  mapbuf("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
+  -- mapbuf("n", "gd", "<cmd>lua require'telescope.builtin'.lsp_definitions({ initial_mode = 'normal', })<CR>", opt)
   --   [>
   --   mapbuf("n", "gh", "<cmd>Lspsaga hover_doc<cr>", opt)
   --   Lspsaga 替换 gh
   --   --]]
-  --   mapbuf("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
+  mapbuf("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
   --   [>
   --   Lspsaga 替换 gr
-  --   mapbuf("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
+  mapbuf("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
   --   --]]
   --   mapbuf("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opt)
   --   [>
   --   Lspsaga 替换 gp, gj, gk
-  --   mapbuf("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
-  --   mapbuf("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
-  --   mapbuf("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
+  mapbuf("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
+  mapbuf("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
+  mapbuf("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
   --   --]]
   --   -- diagnostic
-  --   mapbuf("n", "gp", "<cmd>Lspsaga show_line_diagnostics<CR>", opt)
-  --   mapbuf("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", opt)
-  --   mapbuf("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opt)
-  --   mapbuf("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opt)
+  mapbuf("n", "gp", "<cmd>Lspsaga show_line_diagnostics<CR>", opt)
+  mapbuf("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", opt)
+  mapbuf("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opt)
+  mapbuf("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opt)
   --   -- 未用
   --   -- mapbuf("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
   --   -- mapbuf("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
@@ -500,8 +488,7 @@ pluginKeys.mapToggleTerm = function(toggleterm)
 end
 --
 pluginKeys.Tagbar = function(tagbar)
-
-  map("n", "<F3>", ":TagbarToggle<CR>", opt)
+  map('n', '<F3>', ':TagbarToggle<CR>', opt)
   --
   --     map <Leader>tb       "快捷键设置
   --     noremap  :Tagbar<CR>

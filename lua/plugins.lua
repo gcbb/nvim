@@ -53,27 +53,34 @@ vim.opt.rtp:prepend(lazypath)
 local plug_list = {
   {
 
-  "folke/which-key.nvim",
-  { "folke/neoconf.nvim", cmd = "Neoconf" },
-  "folke/neodev.nvim",
+    "folke/which-key.nvim",
+    { "folke/neoconf.nvim", cmd = "Neoconf" },
+    {"folke/neodev.nvim", config = true},
     -------------------------- plugins -------------------------------------------
     --  'keaising/im-select.nvim'
-    {'neoclide/coc.nvim', branch = 'master', build = 'yarn install --frozen-lockfile'},
+    -- {'neoclide/coc.nvim',
+    --   branch = 'master', 
+    --   build = 'yarn install --frozen-lockfile',
+    --   event = "VeryLazy",
+    --   enabled = "false"
+    -- },
     -- GPT
     {
-       "dpayne/CodeGPT.nvim",
-       dependencies = {
-          "MunifTanjim/nui.nvim",
-          "nvim-lua/plenary.nvim",
-       },
-       -- config = function()
-       --    require("codegpt.config")
-       -- end
-     
+      "dpayne/CodeGPT.nvim",
+      dependencies = {
+        "MunifTanjim/nui.nvim",
+        "nvim-lua/plenary.nvim",
+      },
+      event = "VeryLazy"
+      -- config = function()
+      --    require("codegpt.config")
+      -- end
+
     },
-    { 'majutsushi/tagbar'},
+    -- {"github/copilot.vim",  event = "VeryLazy"},
+    { 'majutsushi/tagbar', event = "VeryLazy"},
     -- ,{ 'sjl/gundo.vim', init = function() vim.g.gundo_auto_preview = 1 end }
-    {'mbbill/undotree'},
+    {'mbbill/undotree', event = "VeryLazy"},
     -- , {'sindrets/undoquit.vim'}
 
     -- markdown
@@ -83,24 +90,28 @@ local plug_list = {
       init = function() vim.g.mkdp_filetypes = { "markdown" } end,
       ft = { "markdown" },
     },
-        -- let g:gundo_prefer_python3=1
--- tree
+    -- let g:gundo_prefer_python3=1
+    -- tree
     {
-        'nvim-tree/nvim-tree.lua',
-        dependencies = {
-            'nvim-tree/nvim-web-devicons', -- optional
-        },
+      'nvim-tree/nvim-tree.lua',
+      dependencies = {
+        'nvim-tree/nvim-web-devicons', -- optional
+        opt=true
+      },
     },
     -- bufferline
     {
       "akinsho/bufferline.nvim",
-      dependencies = { "nvim-tree/nvim-web-devicons", "moll/vim-bbye" },
+      dependencies = { "nvim-tree/nvim-web-devicons", "moll/vim-bbye", opt=true },
     }
     -- lualine
-    ,({
+    ,{
       "nvim-lualine/lualine.nvim",
-      dependencies = { "nvim-tree/nvim-web-devicons",lazy=true },
-    })
+      dependencies = { "nvim-tree/nvim-web-devicons", opt=true },
+      opts = {
+        theme = 'tokyonight'
+      }
+    }
     ,("arkav/lualine-lsp-progress")
     -- -- telescope
     ,({
@@ -117,40 +128,71 @@ local plug_list = {
     -- -- treesitter
     ,({
       "nvim-treesitter/nvim-treesitter",
-        build = function()
-            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-            ts_update()
-        end
-     })
+      build = function()
+        local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+        ts_update()
+      end
+    }),
     -- ,("p00f/nvim-ts-rainbow")
     -- -- indent-blankline
-    , ("lukas-reineke/indent-blankline.nvim")
+    ("lukas-reineke/indent-blankline.nvim"),
     -- --------------------- LSP --------------------
     -- Lspconfig
-    , {'neovim/nvim-lspconfig', 'williamboman/nvim-lsp-installer'}
+    --, 'williamboman/nvim-lsp-installer'
+    {
+      "neovim/nvim-lspconfig",
+      -- event = { "BufReadPre", "BufNewFile" },
+      dependencies = {
+        { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
+        { "folke/neodev.nvim", opts = {} },
+        {"williamboman/mason.nvim", build = ":MasonUpdate"},
+        "williamboman/mason-lspconfig.nvim",
+        {
+          "hrsh7th/cmp-nvim-lsp",
+          -- cond = function()
+          --   return require("lazyvim.util").has("nvim-cmp")
+          -- end,
+        },
+      },
+    },
     -- -- 补全引擎
-    ,("hrsh7th/nvim-cmp")
+    -- {
+    --   "L3MON4D3/LuaSnip",
+    --   -- follow latest release.
+    --   -- install jsregexp (optional!:).
+    --   build = "make install_jsregexp"
+    -- },
+    -- {
+    --   "L3MON4D3/LuaSnip",
+    --   dependencies = { "rafamadriz/friendly-snippets" },
+    -- },
+    'SirVer/ultisnips',
+    'keelii/vim-snippets',
+    {"hrsh7th/nvim-cmp"},
     -- -- Snippet 引擎
-    -- ,("hrsh7th/vim-vsnip")
+    {
+      "hrsh7th/vim-vsnip",
+      dependencies = { "rafamadriz/friendly-snippets" },
+    },
     -- -- 补全源
-    -- ,("hrsh7th/cmp-vsnip")
-    ,("hrsh7th/cmp-nvim-lsp") -- { name = nvim_lsp }
+    ("hrsh7th/cmp-nvim-lsp") -- { name = nvim_lsp }
     -- ,("hrsh7th/cmp-buffer") -- { name = 'buffer' },
     -- ,("hrsh7th/cmp-path") -- { name = 'path' }
     -- ,("hrsh7th/cmp-cmdline") -- { name = 'cmdline' }
     -- ,("hrsh7th/cmp-nvim-lsp-signature-help") -- { name = 'nvim_lsp_signature_help' }
     -- -- 常见编程语言代码段
-    ,("rafamadriz/friendly-snippets")
+    ,("rafamadriz/friendly-snippets"),
     -- -- UI 增强
-    ,("onsails/lspkind-nvim")
-    ,("tami5/lspsaga.nvim")
+    ("onsails/lspkind-nvim"),
+    -- ,("tami5/lspsaga.nvim"),
     -- -- 代码格式化
-    ,("mhartington/formatter.nvim")
-    -- ,({ "jose-elias-alvarez/null-ls.nvim", dependencies = "nvim-lua/plenary.nvim" })
+    ("mhartington/formatter.nvim"),
+    { "jose-elias-alvarez/null-ls.nvim",
+      dependencies = "nvim-lua/plenary.nvim" },
     -- -- TypeScript 增强
     -- ,({ "jose-elias-alvarez/nvim-lsp-ts-utils", dependencies = "nvim-lua/plenary.nvim" })
     -- -- Lua 增强
-    -- ,("folke/lua-dev.nvim")
+    ("folke/neodev.nvim")
     -- JSON 增强schemastore
     ,("b0o/schemastore.nvim")
     -- yml 
@@ -161,15 +203,14 @@ local plug_list = {
     ,("folke/tokyonight.nvim")
     -- OceanicNext
     ,("mhartington/oceanic-next")
+    , 'altercation/vim-colors-solarized'
+    , 'overcache/NeoSolarized'
     -- gruvbox
     ,({
       "ellisonleao/gruvbox.nvim",
       dependencies = { "rktjmp/lush.nvim" },
     })
 
-    -- color 
-    , 'altercation/vim-colors-solarized'
-    , 'overcache/NeoSolarized'
     -- zephyr
     ,("glepnir/zephyr-nvim")
     -- nord
@@ -183,59 +224,59 @@ local plug_list = {
     --
 
 
-    ,({ "akinsho/toggleterm.nvim" })
+    ,{ "akinsho/toggleterm.nvim" },
     -- -- surround
     -- ,("ur4ltz/surround.nvim")
     -- -- Comment
-    ,("numToStr/Comment.nvim")
+    {"numToStr/Comment.nvim"},
     --,("terrortylor/nvim-comment")
     -- ,("preservim/nerdcommenter")
 
     -- -- nvim-autopairs
-    -- ,("windwp/nvim-autopairs")
+    -- ,("windwp/nvim-autopairs"),
     -- git
-    ,({ "lewis6991/gitsigns.nvim" })
+    { "lewis6991/gitsigns.nvim",event = "VeryLazy" },
     -- vimspector
-    ,("puremourning/vimspector")
+    {"puremourning/vimspector", event = "VeryLazy"},
     -- ----------------------------------------------
-    ,("mfussenegger/nvim-dap")
-    ,("theHamsta/nvim-dap-virtual-text")
-    ,("rcarriga/nvim-dap-ui"),
-    -- ,("Pocco81/DAPInstall.nvim")
-    -- ("jbyuki/one-small-step-for-vimkind")
+    ("mfussenegger/nvim-dap"),
+    ("theHamsta/nvim-dap-virtual-text"),
+    ("rcarriga/nvim-dap-ui"),
+    -- ("Pocco81/DAPInstall.nvim"),
+    -- ("jbyuki/one-small-step-for-vimkind"),
     --
     ("j-hui/fidget.nvim"),
 
-    ('skywind3000/vim-terminal-help'),
-    ('ggandor/leap.nvim')
+    {'skywind3000/vim-terminal-help'},
+    {'ggandor/leap.nvim'}
   },
 
   -- config = function(plugin)
   --     vim.opt.rtp:append(plugin.dir .. "/custom-rtp")
   -- end
- --  config = {
- --    -- 锁定插件版本在snapshots目录
- --    snapshot_path = require("packer.util").join_paths(vim.fn.stdpath("config"), "snapshots"),
- --    -- 这里锁定插件版本在v1，不会继续更新插件
- --    snapshot = "v1",
-	--
- --    -- 最大并发数
- --    max_jobs = 16,
- --    -- 自定义源
- --    git = {
- --      --default_url_format = "https://hub.fastgit.xyz/%s",
- --      -- default_url_format = "https://mirror.ghproxy.com/https://github.com/%s",
- --      -- default_url_format = "https://gitcode.net/mirrors/%s",
- --      -- default_url_format = "https://gitclone.com/github.com/%s",
-	-- default_url_format = "https://github.com/%s",
- --    },
- --    -- display = {
- --    -- 使用浮动窗口显示
- --    --   open_fn = function()
- --    --     return require("packer.util").float({ border = "single" })
- --    --   end,
- --    -- },
- --  },
+  --  config = {
+  --    -- 锁定插件版本在snapshots目录
+  --    snapshot_path = require("packer.util").join_paths(vim.fn.stdpath("config"), "snapshots"),
+  --    -- 这里锁定插件版本在v1，不会继续更新插件
+  --    snapshot = "v1",
+  --
+  --    -- 最大并发数
+  --    max_jobs = 16,
+  --    -- 自定义源
+  --    git = {
+  --      --default_url_format = "https://hub.fastgit.xyz/%s",
+  --      -- default_url_format = "https://mirror.ghproxy.com/https://github.com/%s",
+  --      -- default_url_format = "https://gitcode.net/mirrors/%s",
+  --      -- default_url_format = "https://gitclone.com/github.com/%s",
+  -- default_url_format = "https://github.com/%s",
+  --    },
+  --    -- display = {
+  --    -- 使用浮动窗口显示
+  --    --   open_fn = function()
+  --    --     return require("packer.util").float({ border = "single" })
+  --    --   end,
+  --    -- },
+  --  },
 }
 
 require("lazy").setup(plug_list)

@@ -1,4 +1,5 @@
 vim.g.python3_host_prog = vim.fn.exepath('python.exe')
+-- print("reload init lua")
 
 require("basic")
 require('plugins')
@@ -13,9 +14,9 @@ require("codegpt.config")
 require('plugin-config.nvim-treesitter')
 require('plugin-config.comment')
 
-require('leap').add_default_mappings()
+require('plugin-config.targbar')
 require('plugin-config.indent-blankline')
-require('plugin-config.coc')
+-- require('plugin-config.coc')
 require("plugin-config.telescope")
 -- require("plugin-config.dashboard")
 require("plugin-config.project")
@@ -29,10 +30,17 @@ require("plugin-config.toggleterm")
 
 -- require("lsp")
 --      require("dap")
+--
 require("lsp.setup")
---     require("cmp")
-require("lsp.ui")
+require("cmp")
+-- require("lsp.ui")
+--
 -- 格式化
 -- require("lsp.formatter")
---require("lsp.null-ls")
+-- require("lsp.null-ls")
+require('leap').add_default_mappings()
+require("mason").setup()
+require("lsp.config.snippets")
+
+-- require("ultisnips").setup()
 -- require("bufferline").setup{}

@@ -57,5 +57,12 @@ vim.opt.foldlevel = 99
 --  set foldmethod=expr
 --  set foldexpr=nvim_treesitter#foldexpr()
 -- endfunction
-
+-- 保存时自动格式化
+-- local auto_indent = vim.api.nvim_create_augroup("AUTO_INDENT", {clear = true})
+-- vim.api.nvim_create_autocmd({"BufWritePost"}, {
+--     pattern = "*",
+--     group = auto_indent,
+--     command = 'normal! gg=G``'
+-- })
+--
 -- autocmd BufAdd,BufEnter,BufNew,BufNewFile,BufWinEnter * :call FoldConfig()

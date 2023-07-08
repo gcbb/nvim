@@ -19,83 +19,67 @@ vim.o.foldmethod = "indent"
 
 -- 定义自定义函数 InserDebugJsonMsg
 vim.cmd([[
-  function! InserDebugJsonMsg()
-      execute "normal! viwyoprint('Dbg:'"
-      execute "normal! a" . shellescape(expand("%:t"))
-      execute "normal! a :".line(".")." '"
-      execute "normal! pa=',"
-      execute "normal! pa)"
-      execute "normal! viwyologging.debug(''"
-      execute "normal! pa='+json.dumps(''"
-      execute "normal! pa,indent = 4))"
-  endfunction
-]])
-
--- 定义自定义函数 SetBreakPoint
-vim.cmd([[
   function! SetBreakPoint()
-      execute "normal Iimport ipdb as pdb;pdb.set_trace()"
+  execute "normal Iimport ipdb as pdb;pdb.set_trace()"
   endfunction
 ]])
 
 -- 创建快捷键映射
- -- vim.api.nvim_set_keymap('n', ',rf', ':lua run_file()<CR>', { noremap = true })
+-- vim.api.nvim_set_keymap('n', ',rf', ':lua run_file()<CR>', { noremap = true })
 
 vim.cmd([[
   function! RunFile_old(mode)
-      exec "w"
-      if &filetype == 'python' then
-          if a:mode == "test" then
-              let test_file_dir = join(['Test_', expand('%')], '')
-              if ! filereadable(test_file_dir) then
-                  let test_file_dir = join(['test/test_', expand('%')], '')
-              endif
-              echo test_file_dir
-              exec ':H python ' . test_file_dir
-          elseif a:mode == "main" then
-              if filereadable("main_.py") then
-                  exec ':H python main_.py'
-              endif
-          else
-              exec ':H python ' . expand('%')
-          endif
-      elseif &filetype == 'dosbatch' then
-          exec ':H ./' . expand('%')
-      elseif &filetype == 'markdown' then
-          exec ':MarkdownPreviewToggle'
-      endif
+  exec "w"
+  if &filetype == 'python' then
+  if a:mode == "test" then
+  let test_file_dir = join(['Test_', expand('%')], '')
+  if ! filereadable(test_file_dir) then
+  let test_file_dir = join(['test/test_', expand('%')], '')
+  endif
+  echo test_file_dir
+  exec ':H python ' . test_file_dir
+  elseif a:mode == "main" then
+  if filereadable("main_.py") then
+  exec ':H python main_.py'
+  endif
+  else
+  exec ':H python ' . expand('%')
+  endif
+  elseif &filetype == 'dosbatch' then
+  exec ':H ./' . expand('%')
+  elseif &filetype == 'markdown' then
+  exec ':MarkdownPreviewToggle'
+  endif
   endfunction
 ]])
 
 
 -- 定义Pep8函数
 function Pep8()
-    vim.cmd("w")
-    if vim.bo.filetype == 'python' then
-        vim.fn.system("!black %")
-        -- vim.fn.system("!pycodestyle --first %")
-        -- vim.fn.system("!flake8 %")
-    end
+  vim.cmd("w")
+  if vim.bo.filetype == 'python' then
+    vim.fn.system("!black %")
+    -- vim.fn.system("!pycodestyle --first %")
+    -- vim.fn.system("!flake8 %")
+  end
 end
 
 -- 检查 cfg.vim 文件是否可读并加载
 if vim.fn.filereadable("cfg.vim") then
-    -- TODO filereadable 不能正常返回值
-    -- vim.cmd("source cfg.vim")
+  -- TODO filereadable 不能正常返回值
+  -- vim.cmd("source cfg.vim")
 end
 
 -- 定义构建 Quickfix 列表的函数
 function build_quickfix_list(lines)
-    vim.fn.setqflist(vim.tbl_map(function(line) return { filename = line } end, lines))
-    vim.cmd("copen")
-    vim.cmd("cc")
+  vim.fn.setqflist(vim.tbl_map(function(line) return { filename = line } end, lines))
+  vim.cmd("copen")
+  vim.cmd("cc")
 end
 
 -- 自动命令：在 BufReadPost 事件中触发
 vim.cmd("autocmd BufReadPost *.json")
 
--- 设置着色方案
-vim.cmd("colorscheme NeoSolarized")
 -- 设置编码
 vim.o.encoding = "utf-8"
 -- 设置 json 文件显示引号
@@ -103,68 +87,24 @@ vim.o.conceallevel = 0
 
 -- 定义 ShowDocumentation 函数
 function ShowDocumentation()
-    if vim.fn.CocAction('hasProvider', 'hover') then
-        vim.fn.CocActionAsync('doHover')
-    else
-        vim.api.nvim_feedkeys('K', 'in', false)
-    end
+  if vim.fn.CocAction('hasProvider', 'hover') then
+    vim.fn.CocActionAsync('doHover')
+  else
+    vim.api.nvim_feedkeys('K', 'in', false)
+  end
 end
-vim.cmd([[
-augroup key_map
-    autocmd!
 
 
 
 
-    " ----------COC snippets---------------
-    " Use <C-l> for trigger snippet expand.
-    xmap <leader>x  <Plug>(coc-convert-snippet)
-    inoremap <silent><expr> <TAB>
-    \ coc#pum#visible() ? coc#_select_confirm() :
-    \ coc#expandableOrJumpable() ?
-    \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-    \ CheckBackspace() ? "\<TAB>" :
-    \ coc#refresh()
-
-  function! CheckBackspace() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
-  let g:coc_snippet_next = '<tab>'
-    let g:coc_snippet_next = '<c-j>'
-    let g:coc_snippet_prev = '<c-k>'
-
-    " ----------COC snippets end---------------
-    nnoremap ,duuid :%s/ UUID=\S*>/>/g<cr>
-" -------------markdown- 在RunFile 调用--------------------
-
-augroup end
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  autocmd BufRead,BufNewFile *.can set filetype=c
-  autocmd BufRead,BufNewFile *.arxml set filetype=xml
-" indentLine 
-autocmd FileType json,markdown let g:indentLine_conceallevel = 0
-" vim-json
-autocmd FileType json,markdown let g:vim_json_syntax_conceal = 0
-
-" Add `:Format` command to format current buffer.
-"command! -nargs=0 Format :call CocAction('format')
-
-" Add `:Fold` command to fold current buffer.
-"command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Add `:OR` command for organize imports of the current buffer.
-"command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-]])
-
+--  vim -snippets
+-- 设置 snippets 路径为配置文件路径下的 /snip 目录
+local config_dir = vim.fn.stdpath("config")
+local snippets_dir = config_dir .. "/snip"
+vim.g.vsnip_snippet_dir = snippets_dir
+vim.g.UltiSnipsSnippetDirectories={snippets_dir}
+vim.g.UltiSnipsExpandTrigger="<S-tab>"
+---------------
 local UserConfig = {
 
   colorscheme = "tokyonight",
@@ -622,13 +562,10 @@ local UserConfig = {
   ---@class MirrorConfig
   mirror = {
     -- treesitter = "https://kgithub.com/",
-     treesitter = false,
+    treesitter = false,
     packer = "https://github.com/",
     -- TODO: LSP DAP mirror config
     -- carefully change these value
   },
 }
-
-
-
 return UserConfig
