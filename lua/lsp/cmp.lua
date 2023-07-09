@@ -6,6 +6,7 @@
 local cmp = require("cmp")
 
 cmp.setup({
+  print("cmp setup"),
   -- 指定 snippet 引擎
   snippet = {
     expand = function(args)

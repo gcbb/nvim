@@ -1,6 +1,7 @@
 #include "s.h"
-
-int main()
+int s = 0;
+int test()
 {
-    s=0;
+  s=0;
 }
+

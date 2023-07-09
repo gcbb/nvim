@@ -13,8 +13,11 @@ end
 vim.g.nvim_tree_respect_buf_cwd = 1
 project.setup({
   detection_methods = { "pattern" },
+  update_root = false,
   patterns = {
     "README.md",
+    "readme.md",
+    "Readme.md",
     "Cargo.toml",
     "package.json",
     ".sln",
@@ -24,6 +27,9 @@ project.setup({
     ".bzr",
     ".svn",
     "Makefile",
+    'cfg.vim',
+    '.project',
+    '.vim'
   },
 })
 
