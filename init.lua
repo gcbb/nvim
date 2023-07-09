@@ -44,3 +44,4 @@ require("lsp.config.snippets")
 
 -- require("ultisnips").setup()
 -- require("bufferline").setup{}
+require("plugin-config.gitsigns")

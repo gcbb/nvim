@@ -38,20 +38,19 @@ local servers = {
   -- lua_ls = require("lsp.config.common"), -- lua/lsp/config/lua.lua
   -- lua_ls = require("lsp.config.lua"), -- lua/lsp/config/lua.lua
   bashls = require("lsp.config.bash"),
-  -- pyright = require("lsp.config.pyright"),
   html = require("lsp.config.html"),
   -- cssls = require("lsp.config.css"),
   -- emmet_ls = require("lsp.config.emmet"),
   jsonls = require("lsp.config.json"),
+  yamlls = require("lsp.config.common"),
   -- tsserver = require("lsp.config.ts"),
-  yamlls = require("lsp.config.yamlls"),
+  -- yamlls = require("lsp.config.yamlls"),
   -- dockerls = require("lsp.config.docker"),
   -- tailwindcss = require("lsp.config.tailwindcss"),
   -- rust_analyzer = require("lsp.config.rust"),
   -- taplo = require("lsp.config.taplo"), -- toml
   -- remark_ls = require("lsp.config.markdown"),
   -- clangd = require("lsp.config.clangd"),
-  clangd = require("lsp.config.common"),
 }
 
 for name, config in pairs(servers) do

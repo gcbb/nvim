@@ -1,5 +1,3 @@
-vim.o.foldmethod = "indent"
-
 -- 创建快捷键映射
 -- vim.api.nvim_set_keymap('n', 'pd', ':lua insertStringAfterVariable()<CR>', { noremap = true })
 -- 定义自定义函数 InserDebugMsg

@@ -96,18 +96,18 @@ local plug_list = {
       'nvim-tree/nvim-tree.lua',
       dependencies = {
         'nvim-tree/nvim-web-devicons', -- optional
-        opt=true
+        -- opt=true
       },
     },
     -- bufferline
     {
       "akinsho/bufferline.nvim",
-      dependencies = { "nvim-tree/nvim-web-devicons", "moll/vim-bbye", opt=true },
+      dependencies = { "nvim-tree/nvim-web-devicons", "moll/vim-bbye"},
     }
     -- lualine
     ,{
       "nvim-lualine/lualine.nvim",
-      dependencies = { "nvim-tree/nvim-web-devicons", opt=true },
+      dependencies = { "nvim-tree/nvim-web-devicons"},
       opts = {
         theme = 'tokyonight'
       }
@@ -119,7 +119,7 @@ local plug_list = {
       dependencies = { "nvim-lua/plenary.nvim" },
     })
     -- -- telescope extensions
-    -- ,("LinArcX/telescope-env.nvim")
+    ,("LinArcX/telescope-env.nvim")
     ,("nvim-telescope/telescope-ui-select.nvim")
     -- -- dashboard-nvim
     -- ,("glepnir/dashboard-nvim")
